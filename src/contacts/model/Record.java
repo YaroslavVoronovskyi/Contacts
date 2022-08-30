@@ -3,6 +3,7 @@ package contacts.model;
 import contacts.Constants;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public abstract class Record {
 
@@ -66,4 +67,8 @@ public abstract class Record {
         return name + Constants.DELIMETER + phoneNumber
                 + Constants.DELIMETER + creationDate + Constants.DELIMETER + lastEditDate;
     }
+
+    public abstract void matcher(Record record);
+
+    public abstract List<Record> searchMatchingType(String query, Record record, List<Record> resultsList);
 }

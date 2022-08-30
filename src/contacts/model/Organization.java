@@ -2,6 +2,10 @@ package contacts.model;
 
 import contacts.Constants;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Organization extends Record {
     private String address;
 
@@ -36,5 +40,24 @@ public class Organization extends Record {
                 .append("Time last edit: ")
                 .append(lastEditDate);
         return builder.toString();
+    }
+
+    @Override
+    public void matcher(Record record) {
+        int index = 1;
+        Organization organization = (Organization) record;
+        System.out.println(index + Constants.COMA_SEPARATOR + organization.getName());
+    }
+
+    @Override
+    public List<Record> searchMatchingType(String query, Record record, List<Record> resultsList) {
+        Pattern pattern = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
+        Organization organization = (Organization) record;
+        String find = organization.getName() + Constants.DELIMETER + organization.getPhoneNumber();
+        Matcher matcher = pattern.matcher(find);
+        if (matcher.find()) {
+            resultsList.add(organization);
+        }
+        return resultsList;
     }
 }

@@ -1,9 +1,6 @@
 package contacts.processors.impl;
 
 import contacts.ConsoleReader;
-import contacts.Constants;
-import contacts.model.Organization;
-import contacts.model.Person;
 import contacts.model.Record;
 import contacts.processors.IActionProcessor;
 import contacts.service.IRecordService;
@@ -11,8 +8,6 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SearchPhoneNumberRecordProcessor implements IActionProcessor {
     private final IRecordService recordService;
@@ -23,19 +18,11 @@ public class SearchPhoneNumberRecordProcessor implements IActionProcessor {
 
     @Override
     public boolean doAction() throws IOException {
-        String query = ConsoleReader.getPersonData();
-        int index = 1;
+        String query = ConsoleReader.getStringFromConsole("Enter search query: ");
         List<Record> resultsList = searchMatching(query);
+        System.out.println("Found " + resultsList.size() + " results:");
         for (Record record : resultsList) {
-            if (record instanceof Person) {
-                Person person = (Person) record;
-                System.out.println(index + ". " + person.getName() + " " + person.getSurname());
-                index += 1;
-            } else if (record instanceof Organization) {
-                Organization organization = (Organization) record;
-                System.out.println(index + ". " + organization.getName());
-                index += 1;
-            }
+            record.matcher(record);
         }
         return false;
     }
@@ -47,23 +34,8 @@ public class SearchPhoneNumberRecordProcessor implements IActionProcessor {
 
     private List<Record> searchMatching(String query) {
         List<Record> resultsList = new ArrayList<>();
-        Pattern pattern = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
         for (Record record : recordService.getAll()) {
-            if (record instanceof Person) {
-                Person person = (Person) record;
-                String find = person.getName() + Constants.DELIMETER + person.getPhoneNumber();
-                Matcher matcher = pattern.matcher(find);
-                if (matcher.find()) {
-                    resultsList.add(person);
-                }
-            } else if (record instanceof Organization) {
-                Organization organization = (Organization) record;
-                String find = organization.getName() + Constants.DELIMETER + organization.getPhoneNumber();
-                Matcher matcher = pattern.matcher(find);
-                if (matcher.find()) {
-                    resultsList.add(organization);
-                }
-            }
+            record.searchMatchingType(query, record, resultsList);
         }
         return resultsList;
     }
