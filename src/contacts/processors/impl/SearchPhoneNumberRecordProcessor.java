@@ -21,8 +21,10 @@ public class SearchPhoneNumberRecordProcessor implements IActionProcessor {
         String query = ConsoleReader.getStringFromConsole("Enter search query: ");
         List<Record> resultsList = searchMatching(query);
         System.out.println("Found " + resultsList.size() + " results:");
+        int index = 0;
         for (Record record : resultsList) {
-            record.matcher(record);
+            index++;
+            record.printListRecord(index);
         }
         return false;
     }
@@ -35,7 +37,9 @@ public class SearchPhoneNumberRecordProcessor implements IActionProcessor {
     private List<Record> searchMatching(String query) {
         List<Record> resultsList = new ArrayList<>();
         for (Record record : recordService.getAll()) {
-            record.searchMatchingType(query, record, resultsList);
+            if (record.matches(query)) {
+                resultsList.add(record);
+            }
         }
         return resultsList;
     }

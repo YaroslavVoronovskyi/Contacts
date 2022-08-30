@@ -1,6 +1,7 @@
 package contacts.processors.impl;
 
 import contacts.ConsoleReader;
+import contacts.Constants;
 import contacts.model.Organization;
 import contacts.model.Record;
 import contacts.processors.*;
@@ -24,27 +25,31 @@ public class EditRecordProcessor implements IActionProcessor {
 
     @Override
     public boolean doAction() throws IOException {
-        List<Record> personsList = recordService.getAll();
-        if (personsList.size() == 0) {
+        List<Record> recordsList = recordService.getAll();
+        if (recordsList.size() == 0) {
             System.out.println("No records to edit!");
             return false;
         }
-        System.out.println();
-
         int index = 0;
-        Record currentPerson = personsList.get(index);
+        for (Record record : recordsList) {
+            index++;
+            System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
+        }
+        System.out.println();
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
+        Record currentRecord = recordsList.get(recordNumber - 1);
         try {
-            if (!currentPerson.isPerson()) {
+            if (!currentRecord.isPerson()) {
                 String actionTitleOrganization = ConsoleReader.getStringFromConsole("Select a field (address, number):");
                 IOrganizationActionProcessor actionProcessorEditOrganization = processorFactoryEditOrganization.
                         getProcessorByTitle(actionTitleOrganization);
-                actionProcessorEditOrganization.doOrganizationAction((Organization) personsList.get(index));
+                actionProcessorEditOrganization.doOrganizationAction((Organization) recordsList.get(recordNumber -1));
 
             } else {
                 String actionTitle = ConsoleReader.getStringFromConsole("Select a field (name, surname, birth, gender, number): ");
                 IPersonActionProcessor actionProcessorEditPersonName = processorFactoryEditPerson
                         .getProcessorByTitle(actionTitle);
-                actionProcessorEditPersonName.doAction(currentPerson);
+                actionProcessorEditPersonName.doAction(currentRecord);
                 System.out.println();
             }
         } catch (NumberFormatException exception) {

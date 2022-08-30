@@ -1,6 +1,7 @@
 package contacts;
 
-import contacts.service.PersonServiceImpl;
+import contacts.service.IRecordService;
+import contacts.service.RecordServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,14 +9,30 @@ import java.io.InputStreamReader;
 
 public class ConsoleReader {
     private static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-    private static PersonServiceImpl personService = new PersonServiceImpl();
+    private static IRecordService recordService = new RecordServiceImpl();
 
-    public static String getPersonData() throws IOException {
-        return bufferedReader.readLine();
+    public static String getStringFromConsole() throws IOException {
+        String expression = bufferedReader.readLine();
+        while (expression == null || expression.trim().isEmpty()) {
+            System.out.println("expression can not be null or empty");
+            expression = bufferedReader.readLine();
+        }
+        return expression;
     }
 
-    public static int getRecordNumber() throws IOException {
-        int listSize = personService.getRecordsCount();
+    public static String getStringFromConsole(String message) throws IOException {
+        System.out.println(message);
+        String expression = bufferedReader.readLine();
+        while (expression == null || expression.trim().isEmpty()) {
+            System.out.println("expression can not be null or empty");
+            System.out.println(message);
+            expression = bufferedReader.readLine();
+        }
+        return expression;
+    }
+
+    public static int getIntFromConsole(String message) throws IOException {
+        System.out.println(message);
         int recordNumber = 0;
         boolean resultNotValid = false;
         do {
@@ -23,17 +40,14 @@ public class ConsoleReader {
                 System.out.println("Please enter correct record number");
             }
             try {
-                recordNumber = Integer.parseInt(ConsoleReader.getPersonData());
-                resultNotValid = recordNumber > listSize;
-            } catch (NumberFormatException | IndexOutOfBoundsException exception) {
+                String result = bufferedReader.readLine();
+                recordNumber = Integer.parseInt(result);
+                resultNotValid = recordNumber < 0;
+            } catch (NumberFormatException exception) {
                 resultNotValid = true;
             }
         } while (resultNotValid);
-        return recordNumber;
-    }
-
-    public static String getStringFromConsole(String message) throws IOException {
         System.out.println(message);
-        return bufferedReader.readLine();
+        return recordNumber;
     }
 }

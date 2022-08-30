@@ -9,5 +9,6 @@ public class Constants {
     public static final String DELIMETER = " ";
     public static final String LINE_SEPARATOR = System.lineSeparator();
     public static final String COMA_SEPARATOR = ", ";
+    public static final String DOT_SEPARATOR = ". ";
 
 }

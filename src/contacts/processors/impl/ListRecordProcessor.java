@@ -19,15 +19,15 @@ public class ListRecordProcessor implements IActionProcessor {
 
     @Override
     public boolean doAction() throws IOException {
-        List<Record> personsList = recordService.getAll();
+        List<Record> recordsList = recordService.getAll();
         int index = 0;
-        for (Record record : personsList) {
+        for (Record record : recordsList) {
             index++;
-            System.out.println(index + Constants.COMA_SEPARATOR + Constants.DELIMETER + record.getName());
+            System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
         }
         System.out.println();
-        int recordNumber = Integer.parseInt(ConsoleReader.getStringFromConsole("Select a record: "));
-        Record record = personsList.get(recordNumber - 1);
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
+        Record record = recordsList.get(recordNumber - 1);
         System.out.println(record);
         System.out.println();
         return true;

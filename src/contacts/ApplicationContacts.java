@@ -48,7 +48,7 @@ public class ApplicationContacts {
             IActionProcessor editRecordProcessor = new EditRecordProcessor(recordService,
                     editPersonProcessorFactory, editOrganizationProcessorFactory);
             IActionProcessor removeRecordProcessor = new RemoveRecordProcessor(recordService);
-            IActionProcessor exitApplicationProcessor = new ExitAppActionProcessor(recordService);
+            IActionProcessor exitApplicationProcessor = new ExitAppActionProcessor();
 
             IActionProcessor menuApplicationProcessor = new MenuApplicationProcessor();
 
@@ -64,7 +64,7 @@ public class ApplicationContacts {
 
             PhoneBook phoneBook = new PhoneBook(processorFactory);
             phoneBook.runPhoneBook();
-        } catch (InputMismatchException exception) {
+        } catch (NumberFormatException exception) {
             System.out.println(exception.getMessage());
         } catch (IOException exception) {
             throw new RuntimeException(exception);

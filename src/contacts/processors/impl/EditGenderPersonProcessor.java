@@ -19,7 +19,7 @@ public class EditGenderPersonProcessor implements IPersonActionProcessor {
     @Override
     public void doAction(Record record) throws IOException {
         Person person = (Person) record;
-        String gender = ConsoleReader.getPersonData();
+        String gender = ConsoleReader.getStringFromConsole();
         person.setGender(gender);
         recordService.update(person);
         System.out.println(person);

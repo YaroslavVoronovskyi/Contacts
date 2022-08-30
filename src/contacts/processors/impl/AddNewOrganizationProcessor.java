@@ -17,7 +17,6 @@ public class AddNewOrganizationProcessor implements IRecordActionProcessor {
     private final IRecordService recordService;
 
     public AddNewOrganizationProcessor(IRecordService recordService) {
-
         this.recordService = recordService;
     }
 
@@ -26,23 +25,22 @@ public class AddNewOrganizationProcessor implements IRecordActionProcessor {
         boolean isPhoneNumberValid = false;
         String name = ConsoleReader.getStringFromConsole("Enter the organization name:");
         String address = ConsoleReader.getStringFromConsole("Enter the address:");
-        String number = ConsoleReader.getStringFromConsole("Enter the phone number:");
-        isPhoneNumberValid = Validator.validatePhoneNumber(number);
-
         Record record = new Organization(name, address);
-        record.setPerson(false);
 
-        if (!isPhoneNumberValid) {
-            System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
-            record.setPhoneNumber("[no number]");
-        } else {
+        while (!isPhoneNumberValid) {
+            String number = ConsoleReader.getStringFromConsole("Enter the phone number:");
+            isPhoneNumberValid = Validator.validatePhoneNumber(number);
+            if (isPhoneNumberValid) {
+                System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
+                continue;
+            }
             record.setPhoneNumber(number);
+            record.setCreationDate(LocalDateTime.now());
+            record.setLastEditDate(LocalDateTime.now());
+            recordService.save(record);
+            System.out.println("The record added.");
+            System.out.println();
         }
-        record.setCreationDate(LocalDateTime.now());
-        record.setLastEditDate(LocalDateTime.now());
-        recordService.save(record);
-        System.out.println("The record added.");
-        System.out.println();
     }
 
     @Override

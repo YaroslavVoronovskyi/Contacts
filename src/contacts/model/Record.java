@@ -1,9 +1,6 @@
 package contacts.model;
 
-import contacts.Constants;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 public abstract class Record {
 
@@ -11,14 +8,10 @@ public abstract class Record {
     protected String phoneNumber;
     protected LocalDateTime creationDate;
     protected LocalDateTime lastEditDate;
-
     private boolean isPerson;
 
-    public boolean isPerson() {
-        return isPerson;
-    }
-
-    public Record() {
+    public Record(String name) {
+        this.name = name;
     }
 
     public boolean setPerson(boolean person) {
@@ -26,8 +19,8 @@ public abstract class Record {
         return person;
     }
 
-    public Record(String name) {
-        this.name = name;
+    public boolean isPerson() {
+        return isPerson;
     }
 
     public String getName() {
@@ -46,29 +39,23 @@ public abstract class Record {
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public LocalDateTime getLastEditDate() {
-        return lastEditDate;
     }
 
     public void setLastEditDate(LocalDateTime lastEditDate) {
         this.lastEditDate = lastEditDate;
     }
 
-    @Override
-    public String toString() {
-        return name + Constants.DELIMETER + phoneNumber
-                + Constants.DELIMETER + creationDate + Constants.DELIMETER + lastEditDate;
+    public abstract void printListRecord(int index);
+
+    public boolean matches(String pattern) {
+        boolean matches = false;
+        if (name.contains(pattern)) {
+            matches = true;
+        }
+        return matches || specificMatches(pattern);
     }
 
-    public abstract void matcher(Record record);
-
-    public abstract List<Record> searchMatchingType(String query, Record record, List<Record> resultsList);
+    public abstract boolean specificMatches(String pattern);
 }

@@ -25,14 +25,17 @@ public class SearchRecordProcessor implements IActionProcessor {
         String query = ConsoleReader.getStringFromConsole("Enter search query: ");
         List<Record> resultsList = searchMatching(query);
         System.out.println("Found " + resultsList.size() + " results:");
-
+        int index = 0;
         for (Record record : resultsList) {
-            record.matcher(record);
+            index++;
+            record.printListRecord(index);
+
         }
-        int index = Integer.parseInt(ConsoleReader.getPersonData());
-        index = index - 1;
-        Record record = resultsList.get(index);
-        String actionTitle = ConsoleReader.getPersonData();
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
+        Record record = resultsList.get(recordNumber - 1);
+        System.out.println(record);
+
+        String actionTitle = ConsoleReader.getStringFromConsole();
         IActionProcessor processor = processorFactory.getProcessorByTitle(actionTitle);
         processor.doAction();
         return false;
@@ -46,7 +49,9 @@ public class SearchRecordProcessor implements IActionProcessor {
     private List<Record> searchMatching(String query) {
         List<Record> resultsList = new ArrayList<>();
         for (Record record : recordService.getAll()) {
-            record.searchMatchingType(query, record, resultsList);
+            if (record.matches(query)) {
+                resultsList.add(record);
+            }
         }
         return resultsList;
     }

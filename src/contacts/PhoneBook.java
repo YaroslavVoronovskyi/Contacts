@@ -13,13 +13,11 @@ public class PhoneBook {
     }
 
     public void runPhoneBook() throws IOException {
-        while (true) {
-            String actionTitle = ConsoleReader.getStringFromConsole("Enter action (add, remove, edit, count, list, exit):");
-            if (actionTitle.equals("exit")) {
-                break;
-            }
+        boolean needContinue = true;
+        while (needContinue) {
+            String actionTitle = ConsoleReader.getStringFromConsole("[menu] Enter action (add, list, search, count, exit):");
             IActionProcessor processor = processorFactory.getProcessorByTitle(actionTitle);
-            processor.doAction();
+            needContinue = processor.doAction();
         }
     }
 }
