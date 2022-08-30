@@ -9,12 +9,12 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 import java.util.List;
 
-public class RemovePersonActionProcessor implements IActionProcessor {
+public class RemoveRecordProcessor implements IActionProcessor {
 
     private final IRecordService recordService;
 
-    public RemovePersonActionProcessor(IRecordService personService) {
-        this.recordService = personService;
+    public RemoveRecordProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override

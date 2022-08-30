@@ -1,18 +1,18 @@
 package contacts.processors.impl;
 
 import contacts.processors.IOrganizationActionProcessor;
-import contacts.processors.IOrganizationEditProcessorFactory;
+import contacts.processors.IEditOrganizationProcessorFactory;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ProcessorFactoryEditOrganization implements IOrganizationEditProcessorFactory {
+public class EditOrganizationProcessorFactory implements IEditOrganizationProcessorFactory {
 
     private final Map<String, IOrganizationActionProcessor> processorsMap;
 
-    public ProcessorFactoryEditOrganization(List<IOrganizationActionProcessor> iPersonActionProcessor) {
+    public EditOrganizationProcessorFactory(List<IOrganizationActionProcessor> iPersonActionProcessor) {
         processorsMap = iPersonActionProcessor.stream()
                 .collect(Collectors.toMap(IOrganizationActionProcessor::getSupportedActionTitle, Function.identity()));
     }

@@ -7,19 +7,19 @@ import contacts.service.IRecordService;
 
 import java.io.IOException;
 
-public class EditOrganizationAddressProcessor implements IOrganizationActionProcessor {
+public class EditAddressOrganizationProcessor implements IOrganizationActionProcessor {
 
-    private final IRecordService personService;
+    private final IRecordService recordService;
 
-    public EditOrganizationAddressProcessor(IRecordService personService) {
-        this.personService = personService;
+    public EditAddressOrganizationProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override
-    public void doActionOrganization(Organization organization) throws IOException {
+    public void doOrganizationAction(Organization organization) throws IOException {
         String address = ConsoleReader.getStringFromConsole("Enter address:");
         organization.setAddress(address);
-        personService.update(organization);
+        recordService.update(organization);
         System.out.println("The record updated!");
         System.out.println();
         System.out.println(organization);

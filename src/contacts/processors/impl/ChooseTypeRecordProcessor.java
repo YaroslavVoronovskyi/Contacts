@@ -8,13 +8,13 @@ import contacts.service.IRecordService;
 
 import java.io.IOException;
 
-public class AddNewRecordProcessor implements IActionProcessor {
+public class ChooseTypeRecordProcessor implements IActionProcessor {
 
-    private final IRecordService personService;
+    private final IRecordService recordService;
     private final IRecordProcessorFactory recordProcessorFactory;
 
-    public AddNewRecordProcessor(IRecordService personService, IRecordProcessorFactory recordProcessorFactory) {
-        this.personService = personService;
+    public ChooseTypeRecordProcessor(IRecordService recordService, IRecordProcessorFactory recordProcessorFactory) {
+        this.recordService = recordService;
         this.recordProcessorFactory = recordProcessorFactory;
     }
 

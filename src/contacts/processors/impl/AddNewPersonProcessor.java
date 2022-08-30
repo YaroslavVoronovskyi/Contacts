@@ -9,12 +9,12 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class AddNewPersonActionProcessor implements IRecordActionProcessor {
+public class AddNewPersonProcessor implements IRecordActionProcessor {
 
     private final IRecordService recordService;
 
-    public AddNewPersonActionProcessor(IRecordService personService) {
-        this.recordService = personService;
+    public AddNewPersonProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class AddNewPersonActionProcessor implements IRecordActionProcessor {
         record.setPerson(true);
         record.setPhoneNumber(number);
         record.setCreationDate(LocalDateTime.now());
-        record.setLastEditeDate(LocalDateTime.now());
+        record.setLastEditDate(LocalDateTime.now());
         recordService.save(record);
 
         System.out.println("The record added.");

@@ -9,7 +9,7 @@ public abstract class Record {
     protected String name;
     protected String phoneNumber;
     protected LocalDateTime creationDate;
-    protected LocalDateTime lastEditeDate;
+    protected LocalDateTime lastEditDate;
 
     private boolean isPerson;
 
@@ -53,17 +53,17 @@ public abstract class Record {
         this.creationDate = creationDate;
     }
 
-    public LocalDateTime getLastEditeDate() {
-        return lastEditeDate;
+    public LocalDateTime getLastEditDate() {
+        return lastEditDate;
     }
 
-    public void setLastEditeDate(LocalDateTime lastEditeDate) {
-        this.lastEditeDate = lastEditeDate;
+    public void setLastEditDate(LocalDateTime lastEditDate) {
+        this.lastEditDate = lastEditDate;
     }
 
     @Override
     public String toString() {
         return name + Constants.DELIMETER + phoneNumber
-                + Constants.DELIMETER + creationDate + Constants.DELIMETER + lastEditeDate;
+                + Constants.DELIMETER + creationDate + Constants.DELIMETER + lastEditDate;
     }
 }

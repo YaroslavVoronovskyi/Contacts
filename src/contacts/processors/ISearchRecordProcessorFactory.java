@@ -1,5 +1,5 @@
 package contacts.processors;
 
-public interface ISearchProcessorFactory {
+public interface ISearchRecordProcessorFactory {
     IActionProcessor getProcessorByTitle(String title);
 }

@@ -74,7 +74,7 @@ public class Person extends Record {
                 .append(creationDate)
                 .append(Constants.LINE_SEPARATOR)
                 .append("Time last edit: ")
-                .append(lastEditeDate);
+                .append(lastEditDate);
         return builder.toString();
     }
 }

@@ -1,10 +1,13 @@
 package contacts.processors.impl;
 
+import contacts.ConsoleReader;
 import contacts.processors.IActionProcessor;
+import contacts.service.IRecordService;
 
 import java.io.IOException;
 
-public class SearchActionProcessorBack implements IActionProcessor {
+public class MenuApplicationProcessor implements IActionProcessor {
+
     @Override
     public boolean doAction() throws IOException {
         return false;
@@ -12,6 +15,6 @@ public class SearchActionProcessorBack implements IActionProcessor {
 
     @Override
     public String getSupportedActionTitle() {
-        return "back";
+        return "menu";
     }
 }

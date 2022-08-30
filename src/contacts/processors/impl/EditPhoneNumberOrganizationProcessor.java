@@ -9,28 +9,26 @@ import contacts.service.Validator;
 
 import java.io.IOException;
 
-public class EditOrganizationPhoneNumberActionProcessor implements IOrganizationActionProcessor {
+public class EditPhoneNumberOrganizationProcessor implements IOrganizationActionProcessor {
 
-    private final IRecordService personService;
+    private final IRecordService recordService;
 
-    public EditOrganizationPhoneNumberActionProcessor(IRecordService personService) {
-        this.personService = personService;
+    public EditPhoneNumberOrganizationProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override
-    public void doActionOrganization(Organization organization) throws IOException {
+    public void doOrganizationAction(Organization organization) throws IOException {
         boolean isPhoneNumberValid = false;
         String phoneNumber = ConsoleReader.getStringFromConsole("Enter the number");
         isPhoneNumberValid = Validator.validatePhoneNumber(phoneNumber);
         if (!isPhoneNumberValid) {
-            System.out.println(Constants.WRONG_NUMBER_FORMAT);
-
+            System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
             organization.setPhoneNumber("[no number]");
-            personService.update(organization);
         } else {
             organization.setPhoneNumber(phoneNumber);
-            personService.update(organization);
         }
+        recordService.update(organization);
         System.out.println("The record updated!");
         System.out.println();
     }

@@ -8,12 +8,12 @@ import contacts.service.IRecordService;
 
 import java.io.IOException;
 
-public class EditPersonSurnameActionProcessor implements IPersonActionProcessor {
+public class EditSurnamePersonProcessor implements IPersonActionProcessor {
 
     private final IRecordService recordService;
 
-    public EditPersonSurnameActionProcessor(IRecordService personService) {
-        this.recordService = personService;
+    public EditSurnamePersonProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override

@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SearchActionProcessorAgain implements IActionProcessor {
+public class SearchAgainRecordProcessor implements IActionProcessor {
 
     private final IRecordService recordService;
 
-    public SearchActionProcessorAgain(IRecordService recordService) {
+    public SearchAgainRecordProcessor(IRecordService recordService) {
         this.recordService = recordService;
     }
 
@@ -31,10 +31,12 @@ public class SearchActionProcessorAgain implements IActionProcessor {
         System.out.println("Found " + resultsList.size() + " results:");
 
         for (Record record : resultsList) {
-            if (record instanceof Person person) {
+            if (record instanceof Person) {
+                Person person = (Person) record;
                 System.out.println(index + ". " + person.getName() + " " + person.getSurname());
                 index += 1;
-            } else if (record instanceof Organization organization) {
+            } else if (record instanceof Organization) {
+                Organization organization = (Organization) record;
                 System.out.println(index + ". " + organization.getName());
                 index += 1;
             }
@@ -51,13 +53,15 @@ public class SearchActionProcessorAgain implements IActionProcessor {
         List<Record> resultsList = new ArrayList<>();
         Pattern pattern = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
         for (Record record : recordService.getAll()) {
-            if (record instanceof Person person) {
+            if (record instanceof Person) {
+                Person person = (Person) record;
                 String find = person.getName() + Constants.DELIMETER + person.getPhoneNumber();
                 Matcher matcher = pattern.matcher(find);
                 if (matcher.find()) {
                     resultsList.add(person);
                 }
-            } else if (record instanceof Organization organization) {
+            } else if (record instanceof Organization) {
+                Organization organization = (Organization) record;
                 String find = organization.getName() + Constants.DELIMETER + organization.getPhoneNumber();
                 Matcher matcher = pattern.matcher(find);
                 if (matcher.find()) {

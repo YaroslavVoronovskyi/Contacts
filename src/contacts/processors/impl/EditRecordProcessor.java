@@ -9,15 +9,15 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 import java.util.List;
 
-public class EditRecordActionProcessor implements IActionProcessor {
+public class EditRecordProcessor implements IActionProcessor {
     private final IRecordService recordService;
-    private final IPersonEditProcessorFactory processorFactoryEditPerson;
-    private final IOrganizationEditProcessorFactory processorFactoryEditOrganization;
+    private final IEditPersonProcessorFactory processorFactoryEditPerson;
+    private final IEditOrganizationProcessorFactory processorFactoryEditOrganization;
 
-    public EditRecordActionProcessor(IRecordService personService,
-                                     IPersonEditProcessorFactory processorFactoryEditPerson,
-                                     IOrganizationEditProcessorFactory processorFactoryEditOrganization) {
-        this.recordService = personService;
+    public EditRecordProcessor(IRecordService recordService,
+                               IEditPersonProcessorFactory processorFactoryEditPerson,
+                               IEditOrganizationProcessorFactory processorFactoryEditOrganization) {
+        this.recordService = recordService;
         this.processorFactoryEditPerson = processorFactoryEditPerson;
         this.processorFactoryEditOrganization = processorFactoryEditOrganization;
     }
@@ -38,7 +38,7 @@ public class EditRecordActionProcessor implements IActionProcessor {
                 String actionTitleOrganization = ConsoleReader.getStringFromConsole("Select a field (address, number):");
                 IOrganizationActionProcessor actionProcessorEditOrganization = processorFactoryEditOrganization.
                         getProcessorByTitle(actionTitleOrganization);
-                actionProcessorEditOrganization.doActionOrganization((Organization) personsList.get(index));
+                actionProcessorEditOrganization.doOrganizationAction((Organization) personsList.get(index));
 
             } else {
                 String actionTitle = ConsoleReader.getStringFromConsole("Select a field (name, surname, birth, gender, number): ");

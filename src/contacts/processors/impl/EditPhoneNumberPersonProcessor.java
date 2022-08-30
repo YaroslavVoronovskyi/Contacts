@@ -9,12 +9,12 @@ import contacts.service.Validator;
 
 import java.io.IOException;
 
-public class EditPersonPhoneNumberActionProcessor implements IPersonActionProcessor {
+public class EditPhoneNumberPersonProcessor implements IPersonActionProcessor {
 
     private final IRecordService recordService;
 
-    public EditPersonPhoneNumberActionProcessor(IRecordService personService) {
-        this.recordService = personService;
+    public EditPhoneNumberPersonProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override
@@ -23,14 +23,12 @@ public class EditPersonPhoneNumberActionProcessor implements IPersonActionProces
         String phoneNumber = ConsoleReader.getStringFromConsole("Enter the number");
         isPhoneNumberValid = Validator.validatePhoneNumber(phoneNumber);
         if (!isPhoneNumberValid) {
-            System.out.println(Constants.WRONG_NUMBER_FORMAT);
-
+            System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
             record.setPhoneNumber("[no number]");
-            recordService.update(record);
         } else {
             record.setPhoneNumber(phoneNumber);
-            recordService.update(record);
         }
+        recordService.update(record);
         System.out.println("The record updated!");
         System.out.println();
     }

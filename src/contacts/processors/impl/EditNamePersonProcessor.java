@@ -7,12 +7,12 @@ import contacts.service.IRecordService;
 
 import java.io.IOException;
 
-public class EditPersonNameActionProcessor implements IPersonActionProcessor {
+public class EditNamePersonProcessor implements IPersonActionProcessor {
 
     private final IRecordService recordService;
 
-    public EditPersonNameActionProcessor(IRecordService personService) {
-        this.recordService = personService;
+    public EditNamePersonProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override

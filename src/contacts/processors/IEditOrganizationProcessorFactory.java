@@ -1,5 +1,5 @@
 package contacts.processors;
 
-public interface IOrganizationEditProcessorFactory {
+public interface IEditOrganizationProcessorFactory {
     IOrganizationActionProcessor getProcessorByTitle(String title);
 }

@@ -9,22 +9,21 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 import java.util.List;
 
-public class ListPersonActionProcessor implements IActionProcessor {
+public class ListRecordProcessor implements IActionProcessor {
 
-    private final IRecordService personService;
-    private final IProcessorFactory processorFactory;
-    public ListPersonActionProcessor(IRecordService personService, IProcessorFactory processorFactory) {
-        this.personService = personService;
-        this.processorFactory = processorFactory;
+    private final IRecordService recordService;
+
+    public ListRecordProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override
     public boolean doAction() throws IOException {
-        List<Record> personsList = personService.getAll();
+        List<Record> personsList = recordService.getAll();
         int index = 0;
         for (Record record : personsList) {
             index++;
-            System.out.println(index + "." + Constants.DELIMETER + record.getName());
+            System.out.println(index + Constants.COMA_SEPARATOR + Constants.DELIMETER + record.getName());
         }
         System.out.println();
         int recordNumber = Integer.parseInt(ConsoleReader.getStringFromConsole("Select a record: "));

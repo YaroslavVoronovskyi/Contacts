@@ -7,11 +7,6 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 
 public class ExitPersonActionProcessor implements IPersonActionProcessor {
-    private final IRecordService personService;
-
-    public ExitPersonActionProcessor(IRecordService personService) {
-        this.personService = personService;
-    }
 
     @Override
     public void doAction(Record record) throws IOException {

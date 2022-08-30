@@ -12,13 +12,13 @@ import contacts.service.Validator;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class AddNewOrganizationActionProcessor implements IRecordActionProcessor {
+public class AddNewOrganizationProcessor implements IRecordActionProcessor {
 
-    private final IRecordService personService;
+    private final IRecordService recordService;
 
-    public AddNewOrganizationActionProcessor(IRecordService personService) {
+    public AddNewOrganizationProcessor(IRecordService recordService) {
 
-        this.personService = personService;
+        this.recordService = recordService;
     }
 
     @Override
@@ -33,23 +33,17 @@ public class AddNewOrganizationActionProcessor implements IRecordActionProcessor
         record.setPerson(false);
 
         if (!isPhoneNumberValid) {
-            System.out.println(Constants.WRONG_NUMBER_FORMAT);
-
+            System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
             record.setPhoneNumber("[no number]");
-            record.setCreationDate(LocalDateTime.now());
-            record.setLastEditeDate(LocalDateTime.now());
-            personService.save(record);
         } else {
             record.setPhoneNumber(number);
-            record.setCreationDate(LocalDateTime.now());
-            record.setLastEditeDate(LocalDateTime.now());
-            personService.save(record);
         }
-
+        record.setCreationDate(LocalDateTime.now());
+        record.setLastEditDate(LocalDateTime.now());
+        recordService.save(record);
         System.out.println("The record added.");
         System.out.println();
     }
-    //  }
 
     @Override
     public String getSupportedActionTitle() {

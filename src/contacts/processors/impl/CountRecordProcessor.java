@@ -5,17 +5,17 @@ import contacts.service.IRecordService;
 
 import java.io.IOException;
 
-public class CountPersonActionProcessor implements IActionProcessor {
+public class CountRecordProcessor implements IActionProcessor {
 
-    private final IRecordService personService;
+    private final IRecordService recordService;
 
-    public CountPersonActionProcessor(IRecordService personService) {
-        this.personService = personService;
+    public CountRecordProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override
     public boolean doAction() throws IOException {
-        System.out.println("The Phone Book has " + personService.getRecordsCount() + " records.");
+        System.out.println("The Phone Book has " + recordService.getRecordsCount() + " records.");
         return true;
     }
 

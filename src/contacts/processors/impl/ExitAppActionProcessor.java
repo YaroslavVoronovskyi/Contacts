@@ -7,10 +7,10 @@ import java.io.IOException;
 
 public class ExitAppActionProcessor implements IActionProcessor {
 
-    private final IRecordService personService;
+    private final IRecordService recordService;
 
-    public ExitAppActionProcessor(IRecordService personService) {
-        this.personService = personService;
+    public ExitAppActionProcessor(IRecordService recordService) {
+        this.recordService = recordService;
     }
 
     @Override
