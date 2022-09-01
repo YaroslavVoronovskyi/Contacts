@@ -11,7 +11,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 public class ApplicationContacts {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
             IRecordService recordService = new RecordServiceImpl();
 
@@ -64,7 +64,7 @@ public class ApplicationContacts {
 
             PhoneBook phoneBook = new PhoneBook(processorFactory);
             phoneBook.runPhoneBook();
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException | IndexOutOfBoundsException exception) {
             System.out.println(exception.getMessage());
         } catch (IOException exception) {
             throw new RuntimeException(exception);

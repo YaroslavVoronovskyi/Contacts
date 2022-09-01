@@ -30,7 +30,7 @@ public class AddNewOrganizationProcessor implements IRecordActionProcessor {
         while (!isPhoneNumberValid) {
             String number = ConsoleReader.getStringFromConsole("Enter the phone number:");
             isPhoneNumberValid = Validator.validatePhoneNumber(number);
-            if (isPhoneNumberValid) {
+            if (!isPhoneNumberValid) {
                 System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
                 continue;
             }

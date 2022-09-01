@@ -25,12 +25,10 @@ public class RecordServiceImpl implements IRecordService {
 
     @Override
     public void update(Record record) {
-        phoneBook.add(record);
     }
 
     @Override
     public void delete(Record record) {
-        phoneBook.add(record);
     }
 
     @Override

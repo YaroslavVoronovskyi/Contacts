@@ -30,15 +30,15 @@ public class AddNewPersonProcessor implements IRecordActionProcessor {
         while (!isPhoneNumberValid) {
             String number = ConsoleReader.getStringFromConsole("Enter the phone number:");
             isPhoneNumberValid = Validator.validatePhoneNumber(number);
-            if (isPhoneNumberValid) {
+            if (!isPhoneNumberValid) {
                 System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
                 continue;
             }
             Record record = new Person(name, surname, "[no data]", "[no data]");
-            record.setPerson(true);
             record.setPhoneNumber(number);
             record.setCreationDate(LocalDateTime.now());
             record.setLastEditDate(LocalDateTime.now());
+            record.setPerson(true);
             recordService.save(record);
 
             System.out.println("The record added.");

@@ -9,7 +9,6 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 
 public class ChooseTypeRecordProcessor implements IActionProcessor {
-
     private final IRecordService recordService;
     private final IRecordProcessorFactory recordProcessorFactory;
 

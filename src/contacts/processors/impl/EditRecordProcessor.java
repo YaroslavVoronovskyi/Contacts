@@ -43,7 +43,7 @@ public class EditRecordProcessor implements IActionProcessor {
                 String actionTitleOrganization = ConsoleReader.getStringFromConsole("Select a field (address, number):");
                 IOrganizationActionProcessor actionProcessorEditOrganization = processorFactoryEditOrganization.
                         getProcessorByTitle(actionTitleOrganization);
-                actionProcessorEditOrganization.doOrganizationAction((Organization) recordsList.get(recordNumber -1));
+                actionProcessorEditOrganization.doOrganizationAction((Organization) currentRecord);
 
             } else {
                 String actionTitle = ConsoleReader.getStringFromConsole("Select a field (name, surname, birth, gender, number): ");

@@ -38,7 +38,7 @@ public class SearchAgainRecordProcessor implements IActionProcessor {
     private List<Record> searchMatching(String query) {
         List<Record> resultsList = new ArrayList<>();
         for (Record record : recordService.getAll()) {
-            if (record.matches(query)) {
+            if (record.chooseRecordForEdit(query)) {
                 resultsList.add(record);
             }
         }

@@ -4,6 +4,7 @@ import contacts.Constants;
 
 public class Person extends Record {
     private String surname;
+
     private String birthDate;
     private String gender;
 
@@ -12,6 +13,14 @@ public class Person extends Record {
         this.surname = surname;
         this.birthDate = birthDate;
         this.gender = gender;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public void setGender(String gender) {

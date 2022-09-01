@@ -1,15 +1,11 @@
 package contacts;
 
-import contacts.service.IRecordService;
-import contacts.service.RecordServiceImpl;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ConsoleReader {
     private static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-    private static IRecordService recordService = new RecordServiceImpl();
 
     public static String getStringFromConsole() throws IOException {
         String expression = bufferedReader.readLine();
@@ -40,10 +36,9 @@ public class ConsoleReader {
                 System.out.println("Please enter correct record number");
             }
             try {
-                String result = bufferedReader.readLine();
-                recordNumber = Integer.parseInt(result);
+                recordNumber = Integer.parseInt(bufferedReader.readLine());
                 resultNotValid = recordNumber < 0;
-            } catch (NumberFormatException exception) {
+            } catch (NumberFormatException | IndexOutOfBoundsException exception) {
                 resultNotValid = true;
             }
         } while (resultNotValid);

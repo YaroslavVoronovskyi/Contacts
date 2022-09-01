@@ -1,5 +1,6 @@
 package contacts.model;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public abstract class Record {
@@ -8,19 +9,18 @@ public abstract class Record {
     protected String phoneNumber;
     protected LocalDateTime creationDate;
     protected LocalDateTime lastEditDate;
-    private boolean isPerson;
-
-    public Record(String name) {
-        this.name = name;
-    }
-
-    public boolean setPerson(boolean person) {
-        isPerson = person;
-        return person;
-    }
 
     public boolean isPerson() {
         return isPerson;
+    }
+
+    public void setPerson(boolean person) {
+        isPerson = person;
+    }
+    protected boolean isPerson = false;
+
+    public Record(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -49,7 +49,7 @@ public abstract class Record {
 
     public abstract void printListRecord(int index);
 
-    public boolean matches(String pattern) {
+    public boolean chooseRecordForEdit(String pattern) {
         boolean matches = false;
         if (name.contains(pattern)) {
             matches = true;
