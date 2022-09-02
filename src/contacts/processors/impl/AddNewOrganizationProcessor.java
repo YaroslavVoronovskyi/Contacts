@@ -6,7 +6,7 @@ import contacts.Constants;
 import contacts.model.Organization;
 import contacts.model.Record;
 import contacts.processors.IRecordActionProcessor;
-import contacts.service.IRecordService;
+import contacts.service.impl.IRecordService;
 import contacts.service.Validator;
 
 import java.io.IOException;

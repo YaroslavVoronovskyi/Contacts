@@ -3,12 +3,12 @@ package contacts.processors.impl;
 import contacts.ConsoleReader;
 import contacts.model.Person;
 import contacts.model.Record;
-import contacts.processors.IPersonActionProcessor;
-import contacts.service.IRecordService;
+import contacts.processors.IEditRecordActionProcessor;
+import contacts.service.impl.IRecordService;
 
 import java.io.IOException;
 
-public class EditSurnamePersonProcessor implements IPersonActionProcessor {
+public class EditSurnamePersonProcessor implements IEditRecordActionProcessor {
 
     private final IRecordService recordService;
 
@@ -17,7 +17,7 @@ public class EditSurnamePersonProcessor implements IPersonActionProcessor {
     }
 
     @Override
-    public void doAction(Record record) throws IOException {
+    public void doAction(Record record) throws IOException, ClassNotFoundException {
         Person person = (Person) record;
         String surname = ConsoleReader.getStringFromConsole("Enter the surname");
         person.setSurname(surname);

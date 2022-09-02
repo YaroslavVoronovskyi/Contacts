@@ -4,8 +4,8 @@ import contacts.model.Record;
 
 import java.io.IOException;
 
-public interface IPersonActionProcessor {
-    void doAction(Record record) throws IOException;
+public interface IEditRecordActionProcessor {
+    void doAction(Record record) throws IOException, ClassNotFoundException;
 
     String getSupportedActionTitle();
 }

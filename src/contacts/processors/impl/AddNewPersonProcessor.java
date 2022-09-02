@@ -5,7 +5,7 @@ import contacts.Constants;
 import contacts.model.Person;
 import contacts.model.Record;
 import contacts.processors.IRecordActionProcessor;
-import contacts.service.IRecordService;
+import contacts.service.impl.IRecordService;
 import contacts.service.Validator;
 
 import java.io.IOException;
@@ -26,7 +26,6 @@ public class AddNewPersonProcessor implements IRecordActionProcessor {
         String surname = ConsoleReader.getStringFromConsole("Enter the surname of the person:");
         String birthDate = ConsoleReader.getStringFromConsole("Enter the birth date:");
         String gender = ConsoleReader.getStringFromConsole("Enter the gender (M, F):");
-        System.out.println("Bad gender!");
         while (!isPhoneNumberValid) {
             String number = ConsoleReader.getStringFromConsole("Enter the phone number:");
             isPhoneNumberValid = Validator.validatePhoneNumber(number);
@@ -34,11 +33,10 @@ public class AddNewPersonProcessor implements IRecordActionProcessor {
                 System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
                 continue;
             }
-            Record record = new Person(name, surname, "[no data]", "[no data]");
+            Record record = new Person(name, surname, birthDate, gender);
             record.setPhoneNumber(number);
             record.setCreationDate(LocalDateTime.now());
             record.setLastEditDate(LocalDateTime.now());
-            record.setPerson(true);
             recordService.save(record);
 
             System.out.println("The record added.");

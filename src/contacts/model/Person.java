@@ -2,9 +2,12 @@ package contacts.model;
 
 import contacts.Constants;
 
-public class Person extends Record {
-    private String surname;
+import java.io.Serializable;
 
+public class Person extends Record implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    private String surname;
     private String birthDate;
     private String gender;
 
@@ -77,5 +80,10 @@ public class Person extends Record {
     @Override
     public boolean specificMatches(String pattern) {
         return name.contains(pattern) || surname.contains(pattern);
+    }
+
+    @Override
+    public String getEditRecordFieldMessage() {
+        return "Select a field (name, surname, birth, gender, number): ";
     }
 }

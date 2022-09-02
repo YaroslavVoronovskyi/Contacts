@@ -1,24 +1,16 @@
 package contacts.model;
 
-import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public abstract class Record {
+public abstract class Record implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected String name;
     protected String phoneNumber;
     protected LocalDateTime creationDate;
     protected LocalDateTime lastEditDate;
-
-    public boolean isPerson() {
-        return isPerson;
-    }
-
-    public void setPerson(boolean person) {
-        isPerson = person;
-    }
-    protected boolean isPerson = false;
-
     public Record(String name) {
         this.name = name;
     }
@@ -49,7 +41,7 @@ public abstract class Record {
 
     public abstract void printListRecord(int index);
 
-    public boolean chooseRecordForEdit(String pattern) {
+    public boolean matches(String pattern) {
         boolean matches = false;
         if (name.contains(pattern)) {
             matches = true;
@@ -58,4 +50,6 @@ public abstract class Record {
     }
 
     public abstract boolean specificMatches(String pattern);
+
+    public abstract String getEditRecordFieldMessage();
 }

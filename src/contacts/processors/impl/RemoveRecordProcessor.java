@@ -4,7 +4,7 @@ import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Record;
 import contacts.processors.IActionProcessor;
-import contacts.service.IRecordService;
+import contacts.service.impl.IRecordService;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +18,7 @@ public class RemoveRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() throws IOException, ClassNotFoundException {
         List<Record> recordsList = recordService.getAll();
         if (recordsList.size() == 0) {
             System.out.println("No records to remove!");

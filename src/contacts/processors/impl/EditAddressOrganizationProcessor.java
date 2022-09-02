@@ -2,12 +2,13 @@ package contacts.processors.impl;
 
 import contacts.ConsoleReader;
 import contacts.model.Organization;
-import contacts.processors.IOrganizationActionProcessor;
-import contacts.service.IRecordService;
+import contacts.model.Record;
+import contacts.processors.IEditRecordActionProcessor;
+import contacts.service.impl.IRecordService;
 
 import java.io.IOException;
 
-public class EditAddressOrganizationProcessor implements IOrganizationActionProcessor {
+public class EditAddressOrganizationProcessor implements IEditRecordActionProcessor {
 
     private final IRecordService recordService;
 
@@ -16,7 +17,8 @@ public class EditAddressOrganizationProcessor implements IOrganizationActionProc
     }
 
     @Override
-    public void doOrganizationAction(Organization organization) throws IOException {
+    public void doAction(Record record) throws IOException, ClassNotFoundException {
+        Organization organization = (Organization) record;
         String address = ConsoleReader.getStringFromConsole("Enter address:");
         organization.setAddress(address);
         recordService.update(organization);

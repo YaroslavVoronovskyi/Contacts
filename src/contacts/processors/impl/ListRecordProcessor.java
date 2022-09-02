@@ -4,7 +4,7 @@ import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Record;
 import contacts.processors.*;
-import contacts.service.IRecordService;
+import contacts.service.impl.IRecordService;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +18,7 @@ public class ListRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() throws IOException, ClassNotFoundException {
         List<Record> recordsList = recordService.getAll();
         int index = 0;
         for (Record record : recordsList) {

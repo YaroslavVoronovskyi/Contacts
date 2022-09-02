@@ -3,7 +3,7 @@ package contacts.processors.impl;
 import contacts.ConsoleReader;
 import contacts.model.Record;
 import contacts.processors.IActionProcessor;
-import contacts.service.IRecordService;
+import contacts.service.impl.IRecordService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class SearchPhoneNumberRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() throws IOException, ClassNotFoundException {
         String query = ConsoleReader.getStringFromConsole("Enter search query: ");
         List<Record> resultsList = searchMatching(query);
         System.out.println("Found " + resultsList.size() + " results:");
@@ -34,10 +34,10 @@ public class SearchPhoneNumberRecordProcessor implements IActionProcessor {
         return "number";
     }
 
-    private List<Record> searchMatching(String query) {
+    private List<Record> searchMatching(String query) throws IOException, ClassNotFoundException {
         List<Record> resultsList = new ArrayList<>();
         for (Record record : recordService.getAll()) {
-            if (record.chooseRecordForEdit(query)) {
+            if (record.matches(query)) {
                 resultsList.add(record);
             }
         }

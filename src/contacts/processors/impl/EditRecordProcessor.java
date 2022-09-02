@@ -2,29 +2,24 @@ package contacts.processors.impl;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
-import contacts.model.Organization;
 import contacts.model.Record;
 import contacts.processors.*;
-import contacts.service.IRecordService;
+import contacts.service.impl.IRecordService;
 
 import java.io.IOException;
 import java.util.List;
 
 public class EditRecordProcessor implements IActionProcessor {
     private final IRecordService recordService;
-    private final IEditPersonProcessorFactory processorFactoryEditPerson;
-    private final IEditOrganizationProcessorFactory processorFactoryEditOrganization;
+    private final IEditRecordProcessorFactory editRecordProcessorFactory;
 
-    public EditRecordProcessor(IRecordService recordService,
-                               IEditPersonProcessorFactory processorFactoryEditPerson,
-                               IEditOrganizationProcessorFactory processorFactoryEditOrganization) {
+    public EditRecordProcessor(IRecordService recordService, IEditRecordProcessorFactory editRecordProcessorFactory) {
         this.recordService = recordService;
-        this.processorFactoryEditPerson = processorFactoryEditPerson;
-        this.processorFactoryEditOrganization = processorFactoryEditOrganization;
+        this.editRecordProcessorFactory = editRecordProcessorFactory;
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() throws IOException, ClassNotFoundException {
         List<Record> recordsList = recordService.getAll();
         if (recordsList.size() == 0) {
             System.out.println("No records to edit!");
@@ -38,23 +33,11 @@ public class EditRecordProcessor implements IActionProcessor {
         System.out.println();
         int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
         Record currentRecord = recordsList.get(recordNumber - 1);
-        try {
-            if (!currentRecord.isPerson()) {
-                String actionTitleOrganization = ConsoleReader.getStringFromConsole("Select a field (address, number):");
-                IOrganizationActionProcessor actionProcessorEditOrganization = processorFactoryEditOrganization.
-                        getProcessorByTitle(actionTitleOrganization);
-                actionProcessorEditOrganization.doOrganizationAction((Organization) currentRecord);
+        String editRecordAction = ConsoleReader.getStringFromConsole(currentRecord.getEditRecordFieldMessage());
 
-            } else {
-                String actionTitle = ConsoleReader.getStringFromConsole("Select a field (name, surname, birth, gender, number): ");
-                IPersonActionProcessor actionProcessorEditPersonName = processorFactoryEditPerson
-                        .getProcessorByTitle(actionTitle);
-                actionProcessorEditPersonName.doAction(currentRecord);
-                System.out.println();
-            }
-        } catch (NumberFormatException exception) {
-            System.out.println(exception.getStackTrace());
-        }
+        IEditRecordActionProcessor editRecordProcessor = editRecordProcessorFactory.getProcessorByTitle(editRecordAction);
+        editRecordProcessor.doAction(currentRecord);
+        System.out.println();
         return true;
     }
 

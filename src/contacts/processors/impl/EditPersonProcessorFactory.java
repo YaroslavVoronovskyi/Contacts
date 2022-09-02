@@ -1,25 +1,25 @@
 package contacts.processors.impl;
 
-import contacts.processors.IPersonActionProcessor;
-import contacts.processors.IEditPersonProcessorFactory;
+import contacts.processors.IEditRecordActionProcessor;
+import contacts.processors.IEditRecordProcessorFactory;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class EditPersonProcessorFactory implements IEditPersonProcessorFactory {
+public class EditPersonProcessorFactory implements IEditRecordProcessorFactory {
 
-    private final Map<String, IPersonActionProcessor> processorsMap;
+    private final Map<String, IEditRecordActionProcessor> processorsMap;
 
-    public EditPersonProcessorFactory(List<IPersonActionProcessor> iPersonActionProcessor) {
+    public EditPersonProcessorFactory(List<IEditRecordActionProcessor> iPersonActionProcessor) {
         processorsMap = iPersonActionProcessor.stream()
-                .collect(Collectors.toMap(IPersonActionProcessor::getSupportedActionTitle, Function.identity()));
+                .collect(Collectors.toMap(IEditRecordActionProcessor::getSupportedActionTitle, Function.identity()));
     }
 
     @Override
-    public IPersonActionProcessor getProcessorByTitle(String title) {
-        IPersonActionProcessor processor = processorsMap.get(title);
+    public IEditRecordActionProcessor getProcessorByTitle(String title) {
+        IEditRecordActionProcessor processor = processorsMap.get(title);
         if (processor == null) {
             throw  new IllegalArgumentException("No processor found fot title " + title);
         }

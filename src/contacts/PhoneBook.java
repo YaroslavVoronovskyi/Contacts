@@ -12,7 +12,7 @@ public class PhoneBook {
         this.processorFactory = processorFactory;
     }
 
-    public void runPhoneBook() throws IOException {
+    public void runPhoneBook() throws IOException, ClassNotFoundException {
         boolean needContinue = true;
         while (needContinue) {
             String actionTitle = ConsoleReader.getStringFromConsole("[menu] Enter action (add, list, search, count, exit):");

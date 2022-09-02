@@ -2,7 +2,11 @@ package contacts.model;
 
 import contacts.Constants;
 
-public class Organization extends Record {
+import java.io.Serializable;
+
+public class Organization extends Record implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String address;
 
     public Organization(String name, String address) {
@@ -46,5 +50,10 @@ public class Organization extends Record {
     @Override
     public boolean specificMatches(String pattern) {
         return name.contains(pattern);
+    }
+
+    @Override
+    public String getEditRecordFieldMessage() {
+        return "Select a field (address, number):";
     }
 }

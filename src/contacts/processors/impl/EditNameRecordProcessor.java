@@ -2,21 +2,21 @@ package contacts.processors.impl;
 
 import contacts.ConsoleReader;
 import contacts.model.Record;
-import contacts.processors.IPersonActionProcessor;
-import contacts.service.IRecordService;
+import contacts.processors.IEditRecordActionProcessor;
+import contacts.service.impl.IRecordService;
 
 import java.io.IOException;
 
-public class EditNamePersonProcessor implements IPersonActionProcessor {
+public class EditNameRecordProcessor implements IEditRecordActionProcessor {
 
     private final IRecordService recordService;
 
-    public EditNamePersonProcessor(IRecordService recordService) {
+    public EditNameRecordProcessor(IRecordService recordService) {
         this.recordService = recordService;
     }
 
     @Override
-    public void doAction(Record record) throws IOException {
+    public void doAction(Record record) throws IOException, ClassNotFoundException {
         String name = ConsoleReader.getStringFromConsole("Enter the name");
         record.setName(name);
         recordService.update(record);
