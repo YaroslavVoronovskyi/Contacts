@@ -12,7 +12,7 @@ import java.util.List;
 public class FileRecordDao implements IRecordDao {
 
     @Override
-    public Record get(int index) {
+    public Record getByIndex(int index) {
         return null;
     }
 

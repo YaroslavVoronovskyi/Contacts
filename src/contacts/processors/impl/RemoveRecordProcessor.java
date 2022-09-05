@@ -4,7 +4,7 @@ import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Record;
 import contacts.processors.IActionProcessor;
-import contacts.service.impl.IRecordService;
+import contacts.service.IRecordService;
 
 import java.io.IOException;
 import java.util.List;

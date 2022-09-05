@@ -3,7 +3,7 @@ package contacts.processors.impl;
 import contacts.ConsoleReader;
 import contacts.model.Record;
 import contacts.processors.IEditRecordActionProcessor;
-import contacts.service.impl.IRecordService;
+import contacts.service.IRecordService;
 
 import java.io.IOException;
 

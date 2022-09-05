@@ -39,7 +39,7 @@ public abstract class Record implements Serializable {
         this.lastEditDate = lastEditDate;
     }
 
-    public abstract void printListRecord(int index);
+    public abstract void printRecord(int index);
 
     public boolean matches(String pattern) {
         boolean matches = false;

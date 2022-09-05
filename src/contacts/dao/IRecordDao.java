@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IRecordDao {
-    Record get(int index);
+    Record getByIndex(int index);
     List<Record> getAll() throws IOException, ClassNotFoundException;
     void save(Record record) throws IOException;
     void update(Record record) throws IOException, ClassNotFoundException;

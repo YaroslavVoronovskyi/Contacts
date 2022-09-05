@@ -1,25 +1,19 @@
 package contacts;
 
-
 import contacts.dao.IRecordDao;
-import contacts.dao.impl.FileRecordDao;
 import contacts.dao.impl.InMemoryDao;
 import contacts.processors.*;
 import contacts.processors.impl.*;
-import contacts.service.impl.IRecordService;
-import contacts.service.RecordService;
+import contacts.service.IRecordService;
+import contacts.service.impl.RecordService;
 
 import java.io.IOException;
 import java.util.List;
 
 public class ApplicationContacts {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
-//            IRecordDao inMemoryDao = new InMemoryDao();
-
-            IRecordDao inMemoryDao = new FileRecordDao();
-
-           // IRecordService recordService = new RecordService(inMemoryDao);
+            IRecordDao inMemoryDao = new InMemoryDao();
 
             IRecordService recordService = new RecordService(inMemoryDao);
 
@@ -40,15 +34,13 @@ public class ApplicationContacts {
                     List.of(editNamePersonProcessor, editSurnamePersonProcessor,
                             editPhoneNumberRecordProcessor, editGenderPersonProcessor, editAddressOrganizationProcessor));
 
-            IActionProcessor chooseTypeRecordProcessor = new ChooseTypeRecordProcessor(recordService, recordProcessorFactory);
+            IActionProcessor chooseTypeRecordProcessor = new ChooseTypeRecordProcessor(recordProcessorFactory);
 
             IActionProcessor countRecordProcessor = new CountRecordProcessor(recordService);
 
             IActionProcessor searchPhoneNumberRecordProcessor = new SearchPhoneNumberRecordProcessor(recordService);
-            IActionProcessor searchBackRecordProcessor = new SearchBackRecordProcessor();
-            IActionProcessor searchAgainRecordProcessor = new SearchAgainRecordProcessor(recordService);
             ISearchRecordProcessorFactory searchRecordProcessorFactory = new SearchRecordProcessorFactory(
-                    List.of(searchPhoneNumberRecordProcessor, searchBackRecordProcessor, searchAgainRecordProcessor));
+                    List.of(searchPhoneNumberRecordProcessor));
 
             IActionProcessor editRecordProcessor = new EditRecordProcessor(recordService,
                     editPersonProcessorFactory);
@@ -71,10 +63,8 @@ public class ApplicationContacts {
             phoneBook.runPhoneBook();
         } catch (NumberFormatException | IndexOutOfBoundsException exception) {
             System.out.println(exception.getMessage());
-        } catch (IOException exception) {
+        } catch (IOException | ClassNotFoundException exception) {
             throw new RuntimeException(exception);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 }

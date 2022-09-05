@@ -1,10 +1,8 @@
 package contacts.processors.impl;
 
-import contacts.ConsoleReader;
-import contacts.Constants;
 import contacts.model.Record;
 import contacts.processors.IEditRecordActionProcessor;
-import contacts.service.impl.IRecordService;
+import contacts.service.IRecordService;
 import contacts.service.Validator;
 
 import java.io.IOException;
@@ -19,15 +17,8 @@ public class EditPhoneNumberRecordProcessor implements IEditRecordActionProcesso
 
     @Override
     public void doAction(Record record) throws IOException, ClassNotFoundException {
-        boolean isPhoneNumberValid = false;
-        String phoneNumber = ConsoleReader.getStringFromConsole("Enter the number");
-        isPhoneNumberValid = Validator.validatePhoneNumber(phoneNumber);
-        if (!isPhoneNumberValid) {
-            System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
-            record.setPhoneNumber("[no number]");
-        } else {
-            record.setPhoneNumber(phoneNumber);
-        }
+        String phoneNumber = Validator.getValidPhoneNumberFromConsole();
+        record.setPhoneNumber(phoneNumber);
         recordService.update(record);
         System.out.println("The record updated!");
         System.out.println();

@@ -1,7 +1,7 @@
 package contacts.processors.impl;
 
 import contacts.processors.IActionProcessor;
-import contacts.service.impl.IRecordService;
+import contacts.service.IRecordService;
 
 import java.io.IOException;
 

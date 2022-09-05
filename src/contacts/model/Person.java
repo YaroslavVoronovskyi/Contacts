@@ -73,7 +73,7 @@ public class Person extends Record implements Serializable {
     }
 
     @Override
-    public void printListRecord(int index) {
+    public void printRecord(int index) {
         System.out.println(index + Constants.DOT_SEPARATOR + name + Constants.DELIMETER + surname);
     }
 

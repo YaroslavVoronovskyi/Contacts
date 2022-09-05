@@ -5,13 +5,14 @@ import contacts.model.Record;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class InMemoryDao implements IRecordDao {
 
     List<Record> phoneBook = new ArrayList<>();
 
     @Override
-    public Record get(int index) {
+    public Record getByIndex(int index) {
         return phoneBook.get(index);
     }
 
@@ -27,23 +28,15 @@ public class InMemoryDao implements IRecordDao {
 
     @Override
     public void update(Record newRecord) {
-        Record oldRecord = phoneBook.stream().filter(record -> record.getPhoneNumber()
-                .equals(newRecord.getPhoneNumber())).findAny().orElse(null);
-        if (oldRecord == null) {
-            System.out.println("Record can not be null");
-        }
-        phoneBook.remove(oldRecord);
+        Predicate<Record> isQualified = record -> record.getPhoneNumber().equals(newRecord.getPhoneNumber());
+        phoneBook.removeIf(isQualified);
         phoneBook.add(newRecord);
     }
 
     @Override
     public void delete(Record newRecord) {
-        Record oldRecord = phoneBook.stream().filter(record -> record.getPhoneNumber()
-                .equals(newRecord.getPhoneNumber())).findAny().orElse(null);
-        if (oldRecord == null) {
-            System.out.println("Record can not be null");
-        }
-        phoneBook.remove(oldRecord);
+        Predicate<Record> isQualified = record -> record.getPhoneNumber().equals(newRecord.getPhoneNumber());
+        phoneBook.removeIf(isQualified);
     }
 
     @Override

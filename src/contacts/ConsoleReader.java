@@ -9,21 +9,14 @@ public class ConsoleReader {
 
     public static String getStringFromConsole() throws IOException {
         String expression = bufferedReader.readLine();
-        while (expression == null || expression.trim().isEmpty()) {
-            System.out.println("expression can not be null or empty");
-            expression = bufferedReader.readLine();
-        }
+        checkExpressionByNull(expression);
         return expression;
     }
 
     public static String getStringFromConsole(String message) throws IOException {
         System.out.println(message);
         String expression = bufferedReader.readLine();
-        while (expression == null || expression.trim().isEmpty()) {
-            System.out.println("expression can not be null or empty");
-            System.out.println(message);
-            expression = bufferedReader.readLine();
-        }
+        checkExpressionByNull(expression);
         return expression;
     }
 
@@ -44,5 +37,12 @@ public class ConsoleReader {
         } while (resultNotValid);
         System.out.println(message);
         return recordNumber;
+    }
+
+    public static void checkExpressionByNull(String expression) throws IOException {
+        while (expression == null || expression.trim().isEmpty()) {
+            System.out.println("expression can not be null or empty");
+            expression = bufferedReader.readLine();
+        }
     }
 }
