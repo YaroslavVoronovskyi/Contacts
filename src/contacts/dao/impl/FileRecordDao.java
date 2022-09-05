@@ -50,4 +50,9 @@ public class FileRecordDao implements IRecordDao {
         recordsList.add(record);
         return recordsList.size();
     }
+
+    @Override
+    public List<Record> getRecordsByQuery(String query) {
+        return null;
+    }
 }

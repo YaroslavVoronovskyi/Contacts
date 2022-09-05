@@ -12,4 +12,5 @@ public interface IRecordDao {
     void update(Record record) throws IOException, ClassNotFoundException;
     void delete(Record record);
     int getRecordsCount() throws IOException, ClassNotFoundException;
+    List<Record> getRecordsByQuery(String query);
 }

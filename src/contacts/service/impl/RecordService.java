@@ -44,4 +44,9 @@ public class RecordService implements IRecordService {
     public int getRecordsCount() throws IOException, ClassNotFoundException {
         return recordDao.getRecordsCount();
     }
+
+    @Override
+    public List<Record> getRecordsByQuery(String query) {
+        return recordDao.getRecordsByQuery(query);
+    }
 }

@@ -43,4 +43,15 @@ public class InMemoryDao implements IRecordDao {
     public int getRecordsCount() {
         return phoneBook.size();
     }
+
+    @Override
+    public List<Record> getRecordsByQuery(String query) {
+        List<Record> resultsList = new ArrayList<>();
+        for (Record record : phoneBook) {
+            if (record.matches(query)) {
+                resultsList.add(record);
+            }
+        }
+        return resultsList;
+    }
 }

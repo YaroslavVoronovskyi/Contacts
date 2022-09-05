@@ -39,7 +39,7 @@ public class ConsoleReader {
         return recordNumber;
     }
 
-    public static void checkExpressionByNull(String expression) throws IOException {
+    private static void checkExpressionByNull(String expression) throws IOException {
         while (expression == null || expression.trim().isEmpty()) {
             System.out.println("expression can not be null or empty");
             expression = bufferedReader.readLine();
