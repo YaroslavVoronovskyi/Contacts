@@ -9,26 +9,35 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 import java.util.List;
 
-public class ListRecordProcessor implements IActionProcessor {
+public class ShowRecordProcessor implements IActionProcessor {
 
     private final IRecordService recordService;
 
-    public ListRecordProcessor(IRecordService recordService) {
+    public ShowRecordProcessor(IRecordService recordService) {
         this.recordService = recordService;
     }
 
     @Override
-    public boolean doAction() throws IOException, ClassNotFoundException {
+    public boolean doAction() throws IOException {
         List<Record> recordsList = recordService.getAll();
+        if (recordsList.size() == 0) {
+            System.out.println("No records to show!");
+            return true;
+        }
+
         int index = 0;
         for (Record record : recordsList) {
             index++;
             System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
         }
+
         System.out.println();
-        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
-        Record record = recordsList.get(recordNumber - 1);
+
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record number: ", index);
+        Record record;
+        record = recordsList.get(recordNumber - 1);
         System.out.println(record);
+
         System.out.println();
         return true;
     }

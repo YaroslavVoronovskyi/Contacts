@@ -24,22 +24,10 @@ public class Organization extends Record implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Organization name: ")
-                .append(name)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Address: ")
-                .append(address)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Number: ")
-                .append(phoneNumber)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Time created: ")
-                .append(creationDate)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Time last edit: ")
-                .append(lastEditDate);
-        return builder.toString();
+        return "Organization name: " + name + Constants.LINE_SEPARATOR + "Address: " + address + Constants.LINE_SEPARATOR +
+                "Number: " + phoneNumber + Constants.LINE_SEPARATOR + "Time created: " +
+                creationDate.format(Constants.DATE_TIME_FORMAT) + Constants.LINE_SEPARATOR + "Time last edit: " +
+                lastEditDate.format(Constants.DATE_TIME_FORMAT);
     }
 
     @Override

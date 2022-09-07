@@ -15,7 +15,7 @@ public class PhoneBook {
     public void runPhoneBook() throws IOException, ClassNotFoundException {
         boolean needContinue = true;
         while (needContinue) {
-            String actionTitle = ConsoleReader.getStringFromConsole("[menu] Enter action (add, list, search, count, exit):");
+            String actionTitle = ConsoleReader.getStringFromConsole("[menu] Enter action processor (add, list, edit, remove, search, count, exit):");
             IActionProcessor processor = processorFactory.getProcessorByTitle(actionTitle);
             needContinue = processor.doAction();
         }

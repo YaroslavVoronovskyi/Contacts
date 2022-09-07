@@ -2,17 +2,25 @@ package contacts.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public abstract class Record implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    protected String id;
     protected String name;
     protected String phoneNumber;
     protected LocalDateTime creationDate;
     protected LocalDateTime lastEditDate;
+
     public Record(String name) {
+        this.id = generateId();
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -52,4 +60,10 @@ public abstract class Record implements Serializable {
     public abstract boolean specificMatches(String pattern);
 
     public abstract String getEditRecordFieldMessage();
+
+    public String generateId() {
+        String uuid = UUID.randomUUID().toString();
+        id = uuid;
+        return id;
+    }
 }

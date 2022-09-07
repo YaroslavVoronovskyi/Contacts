@@ -5,7 +5,6 @@ import contacts.model.Record;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class InMemoryDao implements IRecordDao {
 
@@ -28,15 +27,13 @@ public class InMemoryDao implements IRecordDao {
 
     @Override
     public void update(Record newRecord) {
-        Predicate<Record> isQualified = record -> record.getPhoneNumber().equals(newRecord.getPhoneNumber());
-        phoneBook.removeIf(isQualified);
+        removeByCondition(newRecord);
         phoneBook.add(newRecord);
     }
 
     @Override
     public void delete(Record newRecord) {
-        Predicate<Record> isQualified = record -> record.getPhoneNumber().equals(newRecord.getPhoneNumber());
-        phoneBook.removeIf(isQualified);
+        removeByCondition(newRecord);
     }
 
     @Override
@@ -53,5 +50,9 @@ public class InMemoryDao implements IRecordDao {
             }
         }
         return resultsList;
+    }
+
+    private void removeByCondition(Record record) {
+        phoneBook.removeIf(r -> r.getId().equals(record.getId()));
     }
 }

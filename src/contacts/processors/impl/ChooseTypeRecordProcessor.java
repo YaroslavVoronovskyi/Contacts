@@ -4,7 +4,6 @@ import contacts.ConsoleReader;
 import contacts.processors.IActionProcessor;
 import contacts.processors.IRecordActionProcessor;
 import contacts.processors.IRecordProcessorFactory;
-import contacts.service.IRecordService;
 
 import java.io.IOException;
 
@@ -16,7 +15,7 @@ public class ChooseTypeRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException, ClassNotFoundException {
+    public boolean doAction() throws IOException {
         String actionTitle = ConsoleReader.getStringFromConsole("Enter the type (person, organization):");
         IRecordActionProcessor recordActionProcessor = recordProcessorFactory.getProcessorByTitle(actionTitle);
         recordActionProcessor.doAction();

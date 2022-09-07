@@ -6,32 +6,29 @@ import contacts.model.Person;
 import contacts.model.Record;
 import contacts.processors.IEditRecordActionProcessor;
 import contacts.service.IRecordService;
-import contacts.service.Validator;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
-public class EditGenderPersonProcessor implements IEditRecordActionProcessor {
+public class EditBirthDatePersonProcessor implements IEditRecordActionProcessor {
 
     private final IRecordService recordService;
 
-    public EditGenderPersonProcessor(IRecordService recordService) {
+    public EditBirthDatePersonProcessor(IRecordService recordService) {
         this.recordService = recordService;
     }
 
     @Override
     public void doAction(Record record) throws IOException {
         Person person = (Person) record;
-        String gender = ConsoleReader.getStringFromConsole("Enter the gender (M, F):",
-                Constants.GENDER_CHECK_PATTERN, Constants.WRONG_GENDER_ERROR);
-        person.setGender(gender);
-        person.setLastEditDate(LocalDateTime.now());
+        String birthDate = ConsoleReader.getStringFromConsole("Enter birth date: mm/dd/yyyy",
+                Constants.BIRTH_DATE_CHECK_PATTERN, Constants.WRONG_BIRTH_DATE_FORMAT_ERROR);
+        person.setBirthDate(birthDate);
         recordService.update(person);
-        System.out.println(person);
+        System.out.println("The record updated!");
     }
 
     @Override
     public String getSupportedActionTitle() {
-        return "gender";
+        return "birth";
     }
 }

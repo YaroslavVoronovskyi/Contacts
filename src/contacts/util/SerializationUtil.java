@@ -1,20 +1,22 @@
 package contacts.util;
 
+import contacts.Constants;
+import contacts.model.Record;
+
 import java.io.*;
+import java.util.List;
 
 public class SerializationUtil {
-    public static void serializeObject(Object object, String fileName) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(object);
-        objectOutputStream.close();
-    }
-
-    public static Object deserializeObject(String fileName) throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(fileName);
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        Object object = objectInputStream.readObject();
-        objectInputStream.close();
-        return object;
+    public static void serializeObject(List<Record> phoneBook) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(Constants.FILE_NAME);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            for (Record currentRecord : phoneBook) {
+                objectOutputStream.writeObject(currentRecord);
+            }
+            objectOutputStream.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }

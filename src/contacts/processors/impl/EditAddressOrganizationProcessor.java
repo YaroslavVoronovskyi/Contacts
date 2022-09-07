@@ -7,6 +7,7 @@ import contacts.processors.IEditRecordActionProcessor;
 import contacts.service.IRecordService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class EditAddressOrganizationProcessor implements IEditRecordActionProcessor {
 
@@ -17,10 +18,11 @@ public class EditAddressOrganizationProcessor implements IEditRecordActionProces
     }
 
     @Override
-    public void doAction(Record record) throws IOException, ClassNotFoundException {
+    public void doAction(Record record) throws IOException {
         Organization organization = (Organization) record;
         String address = ConsoleReader.getStringFromConsole("Enter address:");
         organization.setAddress(address);
+        organization.setLastEditDate(LocalDateTime.now());
         recordService.update(organization);
         System.out.println("The record updated!");
         System.out.println();

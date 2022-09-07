@@ -1,30 +1,26 @@
 package contacts.service;
 
-import contacts.ConsoleReader;
-import contacts.Constants;
-
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
-    public static boolean validatePhoneNumber(String phoneNumber) {
-        Pattern pattern = Constants.PHONE_NUMBER_CHECK_PATTERN;
-        Matcher matcher = pattern.matcher(phoneNumber);
-        return matcher.matches();
-    }
 
-    public static String getValidPhoneNumberFromConsole() throws IOException {
-        boolean isPhoneNumberValid = false;
-        String number = null;
-        while (!isPhoneNumberValid) {
-            number = ConsoleReader.getStringFromConsole("Enter the phone number:");
-            isPhoneNumberValid = Validator.validatePhoneNumber(number);
-            if (!isPhoneNumberValid) {
-                System.out.println(Constants.WRONG_NUMBER_FORMAT_ERROR);
-                continue;
-            }
-        }
-        return number;
+//    public static boolean validateValueByPattern(String value, Pattern pattern) {
+////        boolean isValueValid = false;
+////        while (!isValueValid) {
+//////            value = ConsoleReader.getStringFromConsole(message);
+////            isValueValid = validateFieldValue(value, pattern);
+////            if (!isValueValid) {
+////                System.out.println(errorMessage);
+////            }
+////        }
+//
+//
+//        return validateFieldValue(value, pattern);
+//    }
+
+    public static boolean validateFieldValue(String value, Pattern pattern) {
+        Matcher matcher = pattern.matcher(value);
+        return matcher.matches();
     }
 }

@@ -1,8 +1,11 @@
 package contacts.processors.impl;
 
+import contacts.ConsoleReader;
+import contacts.Constants;
 import contacts.processors.IEditRecordActionProcessor;
 import contacts.processors.IEditRecordProcessorFactory;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -18,10 +21,17 @@ public class EditPersonProcessorFactory implements IEditRecordProcessorFactory {
     }
 
     @Override
-    public IEditRecordActionProcessor getProcessorByTitle(String title) {
-        IEditRecordActionProcessor processor = processorsMap.get(title);
-        if (processor == null) {
-            throw  new IllegalArgumentException("No processor found fot title " + title);
+    public IEditRecordActionProcessor getProcessorByTitle(String title) throws IOException {
+        boolean isTitleExist = false;
+        IEditRecordActionProcessor processor = null;
+        while (!isTitleExist) {
+            isTitleExist = processorsMap.containsKey(title);
+            processor = processorsMap.get(title);
+            if (!isTitleExist) {
+                System.out.println(Constants.WRONG_TITLE_ERROR);
+                title = ConsoleReader.getStringFromConsole("Enter the correct title");
+                continue;
+            }
         }
         return processor;
     }

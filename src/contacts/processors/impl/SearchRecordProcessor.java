@@ -20,18 +20,22 @@ public class SearchRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException, ClassNotFoundException {
+    public boolean doAction() throws IOException {
         String query = ConsoleReader.getStringFromConsole("Enter search query: ");
-        List<Record> resultsList = recordService.getRecordsByQuery(query);
-        System.out.println("Found " + resultsList.size() + " results:");
+        List<Record> resultList = recordService.getRecordsByQuery(query);
+        System.out.println("Found " + resultList.size() + " results:");
+        if (resultList.size() == 0) {
+            System.out.println("No records to show!");
+            return true;
+        }
         int index = 0;
-        for (Record record : resultsList) {
+        for (Record record : resultList) {
             index++;
             record.printRecord(index);
-
         }
-        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
-        Record record = resultsList.get(recordNumber - 1);
+
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);
+        Record record = resultList.get(recordNumber - 1);
         System.out.println(record);
 
         String actionTitle = ConsoleReader.getStringFromConsole();

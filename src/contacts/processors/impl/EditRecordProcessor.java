@@ -19,24 +19,28 @@ public class EditRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException, ClassNotFoundException {
+    public boolean doAction() throws IOException {
         List<Record> recordsList = recordService.getAll();
         if (recordsList.size() == 0) {
             System.out.println("No records to edit!");
-            return false;
+            return true;
         }
+
         int index = 0;
         for (Record record : recordsList) {
             index++;
             System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
         }
-        System.out.println();
-        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
-        Record currentRecord = recordsList.get(recordNumber - 1);
-        String editRecordAction = ConsoleReader.getStringFromConsole(currentRecord.getEditRecordFieldMessage());
 
+        System.out.println();
+
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);
+        Record record = recordsList.get(recordNumber - 1);
+
+        String editRecordAction = ConsoleReader.getStringFromConsole(record.getEditRecordFieldMessage());
         IEditRecordActionProcessor editRecordProcessor = editRecordProcessorFactory.getProcessorByTitle(editRecordAction);
-        editRecordProcessor.doAction(currentRecord);
+        editRecordProcessor.doAction(record);
+
         System.out.println();
         return true;
     }

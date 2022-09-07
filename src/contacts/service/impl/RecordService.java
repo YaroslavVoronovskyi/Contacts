@@ -21,7 +21,7 @@ public class RecordService implements IRecordService {
     }
 
     @Override
-    public List<Record> getAll() throws IOException, ClassNotFoundException {
+    public List<Record> getAll() throws IOException {
         return recordDao.getAll();
     }
 
@@ -31,7 +31,7 @@ public class RecordService implements IRecordService {
     }
 
     @Override
-    public void update(Record record) throws IOException, ClassNotFoundException {
+    public void update(Record record) throws IOException {
         recordDao.update(record);
     }
 
@@ -41,7 +41,7 @@ public class RecordService implements IRecordService {
     }
 
     @Override
-    public int getRecordsCount() throws IOException, ClassNotFoundException {
+    public int getRecordsCount() throws IOException {
         return recordDao.getRecordsCount();
     }
 

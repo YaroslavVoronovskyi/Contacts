@@ -18,20 +18,24 @@ public class RemoveRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException, ClassNotFoundException {
+    public boolean doAction() throws IOException {
         List<Record> recordsList = recordService.getAll();
         if (recordsList.size() == 0) {
             System.out.println("No records to remove!");
-            return false;
+            return true;
         }
+
         int index = 0;
         for (Record record : recordsList) {
             index++;
             System.out.println(index + Constants.DELIMETER + record);
         }
-        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ");
-        recordsList.remove(recordNumber - 1);
+
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);
+        Record record = recordsList.get(recordNumber - 1);
+        recordService.delete(record);
         System.out.println("The record removed!");
+
         return true;
     }
 

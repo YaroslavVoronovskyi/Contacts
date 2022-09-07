@@ -14,7 +14,7 @@ public class CountRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException, ClassNotFoundException {
+    public boolean doAction() throws IOException {
         System.out.println("The Phone Book has " + recordService.getRecordsCount() + " records.");
         return true;
     }

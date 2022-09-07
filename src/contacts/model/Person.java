@@ -46,30 +46,17 @@ public class Person extends Record implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Name: ")
-                .append(name)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Surname: ")
-                .append(surname)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Birth date: ")
-                .append(birthDate)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Gender: ")
-                .append(gender)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Number: ")
-                .append(phoneNumber)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Time created: ")
-                .append(creationDate)
-                .append(Constants.LINE_SEPARATOR)
-                .append("Time last edit: ")
-                .append(lastEditDate);
-        return builder.toString();
+        return "Name: " + name + Constants.LINE_SEPARATOR + "Surname: " + surname + Constants.LINE_SEPARATOR +
+                "Birth date: " + birthDate + Constants.LINE_SEPARATOR + "Gender: " + gender + Constants.LINE_SEPARATOR +
+                "Number: " + phoneNumber + Constants.LINE_SEPARATOR + "Time created: " +
+                creationDate.format(Constants.DATE_TIME_FORMAT) + Constants.LINE_SEPARATOR + "Time last edit: " +
+                lastEditDate.format(Constants.DATE_TIME_FORMAT);
     }
 
     @Override
