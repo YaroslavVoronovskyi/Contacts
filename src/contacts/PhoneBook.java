@@ -1,23 +1,26 @@
 package contacts;
 
-import contacts.processors.IActionProcessor;
-import contacts.processors.IProcessorFactory;
-
-import java.io.IOException;
+import contacts.processors.IPhoneBookActionProcessor;
+import contacts.processors.IPhoneBookProcessorFactory;
 
 public class PhoneBook {
-    private final IProcessorFactory processorFactory;
 
-    public PhoneBook(IProcessorFactory processorFactory) {
+    private final IPhoneBookProcessorFactory processorFactory;
+
+    public PhoneBook(IPhoneBookProcessorFactory processorFactory) {
         this.processorFactory = processorFactory;
     }
 
-    public void runPhoneBook() throws IOException, ClassNotFoundException {
-        boolean needContinue = true;
-        while (needContinue) {
-            String actionTitle = ConsoleReader.getStringFromConsole("[menu] Enter action processor (add, list, edit, remove, search, count, exit):");
-            IActionProcessor processor = processorFactory.getProcessorByTitle(actionTitle);
-            needContinue = processor.doAction();
+    public void runPhoneBook() {
+        try {
+            boolean needContinue = true;
+            while (needContinue) {
+                String actionTitle = ConsoleReader.getStringFromConsole("[menu] Enter action processor (add, list, edit, remove, search, count, exit):");
+                IPhoneBookActionProcessor processor = processorFactory.getProcessorByAction(actionTitle);
+                needContinue = processor.doAction();
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
         }
     }
 }

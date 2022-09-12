@@ -8,21 +8,30 @@ import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
 public class ConsoleReader {
-    private static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
-    public static String getStringFromConsole(String message) throws IOException {
+    public static String getStringFromConsole(String message) {
         System.out.println(message);
-        String value = bufferedReader.readLine();
+        String value;
+        try {
+            value = READER.readLine();
+        } catch (IOException exception) {
+            throw new RuntimeException(Constants.READ_FROM_CONSOLE_ERROR_MESSAGE);
+        }
         checkExpressionByNull(value);
         return value;
     }
 
-    public static String getStringFromConsole(String message, Pattern pattern, String errorMessage) throws IOException {
+    public static String getStringFromConsole(String message, Pattern pattern, String errorMessage) {
         System.out.println(message);
         String value = null;
         boolean isValueValid = false;
         while (!isValueValid) {
-            value = bufferedReader.readLine();
+            try {
+                value = READER.readLine();
+            } catch (IOException exception) {
+                throw new RuntimeException(Constants.READ_FROM_CONSOLE_ERROR_MESSAGE);
+            }
             checkExpressionByNull(value);
             isValueValid = Validator.validateFieldValue(value, pattern);
             if (!isValueValid) {
@@ -32,7 +41,7 @@ public class ConsoleReader {
         return value;
     }
 
-    public static int getIntFromConsole(String message, int maxIndex) throws IOException {
+    public static int getIntFromConsole(String message, int maxIndex) {
         System.out.println(message);
         int recordNumber = 0;
         boolean resultNotValid = false;
@@ -41,19 +50,25 @@ public class ConsoleReader {
                 System.out.println("Please enter correct record number");
             }
             try {
-                recordNumber = Integer.parseInt(bufferedReader.readLine());
+                recordNumber = Integer.parseInt(READER.readLine());
                 resultNotValid = recordNumber <= 0 || recordNumber > maxIndex;
             } catch (NumberFormatException exception) {
                 resultNotValid = true;
+            } catch (IOException exception) {
+                throw new RuntimeException(Constants.READ_FROM_CONSOLE_ERROR_MESSAGE);
             }
         } while (resultNotValid);
         return recordNumber;
     }
 
-    private static void checkExpressionByNull(String value) throws IOException {
+    private static void checkExpressionByNull(String value) {
         while (value == null) {
             System.out.println("expression can not be null or empty");
-            value = bufferedReader.readLine();
+            try {
+                value = READER.readLine();
+            } catch (IOException exception) {
+                throw new RuntimeException(Constants.READ_FROM_CONSOLE_ERROR_MESSAGE);
+            }
         }
     }
 }

@@ -1,15 +1,14 @@
-package contacts.processors.impl;
+package contacts.processors.impl.edit;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Record;
-import contacts.processors.IEditRecordActionProcessor;
+import contacts.processors.IEditRecordProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class EditNameRecordProcessor implements IEditRecordActionProcessor {
+public class EditNameRecordProcessor implements IEditRecordProcessor {
 
     private final IRecordService recordService;
 
@@ -18,7 +17,7 @@ public class EditNameRecordProcessor implements IEditRecordActionProcessor {
     }
 
     @Override
-    public void doAction(Record record) throws IOException {
+    public void editRecord(Record record) {
         String name = ConsoleReader.getStringFromConsole("Enter the name of the person:",
                 Constants.NAME_CHECK_PATTERN, Constants.WRONG_NAME_FORMAT_ERROR);
         record.setName(name);
@@ -29,7 +28,7 @@ public class EditNameRecordProcessor implements IEditRecordActionProcessor {
     }
 
     @Override
-    public String getSupportedActionTitle() {
+    public String getSupportedFieldEditionName() {
         return "name";
     }
 }

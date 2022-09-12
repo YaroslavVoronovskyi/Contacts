@@ -1,15 +1,13 @@
-package contacts.processors.impl;
+package contacts.processors.impl.edit;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Person;
 import contacts.model.Record;
-import contacts.processors.IEditRecordActionProcessor;
+import contacts.processors.IEditRecordProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
-
-public class EditBirthDatePersonProcessor implements IEditRecordActionProcessor {
+public class EditBirthDatePersonProcessor implements IEditRecordProcessor {
 
     private final IRecordService recordService;
 
@@ -18,7 +16,7 @@ public class EditBirthDatePersonProcessor implements IEditRecordActionProcessor 
     }
 
     @Override
-    public void doAction(Record record) throws IOException {
+    public void editRecord(Record record) {
         Person person = (Person) record;
         String birthDate = ConsoleReader.getStringFromConsole("Enter birth date: mm/dd/yyyy",
                 Constants.BIRTH_DATE_CHECK_PATTERN, Constants.WRONG_BIRTH_DATE_FORMAT_ERROR);
@@ -28,7 +26,7 @@ public class EditBirthDatePersonProcessor implements IEditRecordActionProcessor 
     }
 
     @Override
-    public String getSupportedActionTitle() {
+    public String getSupportedFieldEditionName() {
         return "birth";
     }
 }

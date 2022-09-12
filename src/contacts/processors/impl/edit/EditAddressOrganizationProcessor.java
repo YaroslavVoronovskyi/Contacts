@@ -1,16 +1,15 @@
-package contacts.processors.impl;
+package contacts.processors.impl.edit;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Organization;
 import contacts.model.Record;
-import contacts.processors.IEditRecordActionProcessor;
+import contacts.processors.IEditRecordProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class EditAddressOrganizationProcessor implements IEditRecordActionProcessor {
+public class EditAddressOrganizationProcessor implements IEditRecordProcessor {
 
     private final IRecordService recordService;
 
@@ -19,7 +18,7 @@ public class EditAddressOrganizationProcessor implements IEditRecordActionProces
     }
 
     @Override
-    public void doAction(Record record) throws IOException {
+    public void editRecord(Record record) {
         Organization organization = (Organization) record;
         String address = ConsoleReader.getStringFromConsole("Enter the address:",
                 Constants.ADDRESS_CHECK_PATTERN, Constants.WRONG_ADDRESS_FORMAT_ERROR);
@@ -32,7 +31,7 @@ public class EditAddressOrganizationProcessor implements IEditRecordActionProces
     }
 
     @Override
-    public String getSupportedActionTitle() {
+    public String getSupportedFieldEditionName() {
         return "address";
     }
 }

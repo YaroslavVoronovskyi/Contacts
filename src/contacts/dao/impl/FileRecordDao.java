@@ -28,7 +28,7 @@ public class FileRecordDao implements IRecordDao {
     }
 
     @Override
-    public void update(Record record) throws IOException {
+    public void update(Record record) {
         removeByCondition(record);
         phoneBook.add(record);
         writeObjectsToFile(phoneBook);

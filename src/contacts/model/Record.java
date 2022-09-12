@@ -61,8 +61,7 @@ public abstract class Record implements Serializable {
     public abstract String getEditRecordFieldMessage();
 
     public String generateId() {
-        String uuid = UUID.randomUUID().toString();
-        id = uuid;
+        id = UUID.randomUUID().toString();
         return id;
     }
 }

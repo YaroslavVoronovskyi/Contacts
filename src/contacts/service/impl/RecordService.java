@@ -4,7 +4,6 @@ import contacts.dao.IRecordDao;
 import contacts.model.Record;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.util.List;
 
 public class RecordService implements IRecordService {
@@ -16,17 +15,17 @@ public class RecordService implements IRecordService {
     }
 
     @Override
-    public List<Record> getAll() throws IOException {
+    public List<Record> getAll() {
         return recordDao.getAll();
     }
 
     @Override
-    public void save(Record record) throws IOException {
+    public void save(Record record) {
         recordDao.save(record);
     }
 
     @Override
-    public void update(Record record) throws IOException {
+    public void update(Record record) {
         recordDao.update(record);
     }
 
@@ -36,7 +35,7 @@ public class RecordService implements IRecordService {
     }
 
     @Override
-    public int getRecordsCount() throws IOException {
+    public int getRecordsCount() {
         return recordDao.getRecordsCount();
     }
 

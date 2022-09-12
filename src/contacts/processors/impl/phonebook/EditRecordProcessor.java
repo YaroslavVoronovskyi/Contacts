@@ -1,4 +1,4 @@
-package contacts.processors.impl;
+package contacts.processors.impl.phonebook;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
@@ -6,10 +6,9 @@ import contacts.model.Record;
 import contacts.processors.*;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.util.List;
 
-public class EditRecordProcessor implements IActionProcessor {
+public class EditRecordProcessor implements IPhoneBookActionProcessor {
     private final IRecordService recordService;
     private final IEditRecordProcessorFactory editRecordProcessorFactory;
 
@@ -19,7 +18,7 @@ public class EditRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() {
         List<Record> recordsList = recordService.getAll();
         if (recordsList.size() == 0) {
             System.out.println("No records to edit!");
@@ -32,16 +31,12 @@ public class EditRecordProcessor implements IActionProcessor {
             System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
         }
 
-        System.out.println();
-
         int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);
         Record record = recordsList.get(recordNumber - 1);
 
-        String editRecordAction = ConsoleReader.getStringFromConsole(record.getEditRecordFieldMessage());
-        IEditRecordActionProcessor editRecordProcessor = editRecordProcessorFactory.getProcessorByTitle(editRecordAction);
-        editRecordProcessor.doAction(record);
-
-        System.out.println();
+        String fieldName = ConsoleReader.getStringFromConsole(record.getEditRecordFieldMessage());
+        IEditRecordProcessor editRecordProcessor = editRecordProcessorFactory.getProcessorByFieldName(fieldName);
+        editRecordProcessor.editRecord(record);
         return true;
     }
 

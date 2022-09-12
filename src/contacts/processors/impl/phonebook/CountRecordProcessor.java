@@ -1,11 +1,9 @@
-package contacts.processors.impl;
+package contacts.processors.impl.phonebook;
 
-import contacts.processors.IActionProcessor;
+import contacts.processors.IPhoneBookActionProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
-
-public class CountRecordProcessor implements IActionProcessor {
+public class CountRecordProcessor implements IPhoneBookActionProcessor {
 
     private final IRecordService recordService;
 
@@ -14,7 +12,7 @@ public class CountRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() {
         System.out.println("The Phone Book has " + recordService.getRecordsCount() + " records.");
         return true;
     }

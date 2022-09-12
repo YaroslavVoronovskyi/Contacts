@@ -1,15 +1,14 @@
-package contacts.processors.impl;
+package contacts.processors.impl.phonebook;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Record;
-import contacts.processors.IActionProcessor;
+import contacts.processors.IPhoneBookActionProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.util.List;
 
-public class SearchRecordProcessor implements IActionProcessor {
+public class SearchRecordProcessor implements IPhoneBookActionProcessor {
 
     private final IRecordService recordService;
 
@@ -18,7 +17,7 @@ public class SearchRecordProcessor implements IActionProcessor {
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() {
         String query = ConsoleReader.getStringFromConsole("Enter search query: ",
                 Constants.SEARCH_QUERY_CHECK_PATTERN, Constants.WRONG_SEARCH_QUERY_FORMAT_ERROR);
         List<Record> resultList = recordService.getRecordsByQuery(query);
@@ -34,10 +33,7 @@ public class SearchRecordProcessor implements IActionProcessor {
         }
 
         int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);
-        Record record = resultList.get(recordNumber - 1);
-        System.out.println(record);
-
-        System.out.println();
+        System.out.println(resultList.get(recordNumber - 1));
         return true;
     }
 

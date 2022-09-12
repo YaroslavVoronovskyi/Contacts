@@ -1,16 +1,15 @@
-package contacts.processors.impl;
+package contacts.processors.impl.edit;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Person;
 import contacts.model.Record;
-import contacts.processors.IEditRecordActionProcessor;
+import contacts.processors.IEditRecordProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class EditGenderPersonProcessor implements IEditRecordActionProcessor {
+public class EditGenderPersonProcessor implements IEditRecordProcessor {
 
     private final IRecordService recordService;
 
@@ -19,7 +18,7 @@ public class EditGenderPersonProcessor implements IEditRecordActionProcessor {
     }
 
     @Override
-    public void doAction(Record record) throws IOException {
+    public void editRecord(Record record) {
         Person person = (Person) record;
         String gender = ConsoleReader.getStringFromConsole("Enter the gender (M, F):",
                 Constants.GENDER_CHECK_PATTERN, Constants.WRONG_GENDER_ERROR);
@@ -30,7 +29,7 @@ public class EditGenderPersonProcessor implements IEditRecordActionProcessor {
     }
 
     @Override
-    public String getSupportedActionTitle() {
+    public String getSupportedFieldEditionName() {
         return "gender";
     }
 }

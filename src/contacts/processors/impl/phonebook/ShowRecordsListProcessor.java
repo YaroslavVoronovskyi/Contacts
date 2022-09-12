@@ -1,27 +1,26 @@
-package contacts.processors.impl;
+package contacts.processors.impl.phonebook;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Record;
-import contacts.processors.IActionProcessor;
+import contacts.processors.*;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.util.List;
 
-public class RemoveRecordProcessor implements IActionProcessor {
+public class ShowRecordsListProcessor implements IPhoneBookActionProcessor {
 
     private final IRecordService recordService;
 
-    public RemoveRecordProcessor(IRecordService recordService) {
+    public ShowRecordsListProcessor(IRecordService recordService) {
         this.recordService = recordService;
     }
 
     @Override
-    public boolean doAction() throws IOException {
+    public boolean doAction() {
         List<Record> recordsList = recordService.getAll();
         if (recordsList.size() == 0) {
-            System.out.println("No records to remove!");
+            System.out.println("No records to show!");
             return true;
         }
 
@@ -31,16 +30,13 @@ public class RemoveRecordProcessor implements IActionProcessor {
             System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
         }
 
-        int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);
-        Record record = recordsList.get(recordNumber - 1);
-        recordService.delete(record);
-        System.out.println("The record removed!");
-
+        int recordNumber = ConsoleReader.getIntFromConsole("Select a record number: ", index);
+        System.out.println(recordsList.get(recordNumber - 1));
         return true;
     }
 
     @Override
     public String getSupportedActionTitle() {
-        return "remove";
+        return "list";
     }
 }

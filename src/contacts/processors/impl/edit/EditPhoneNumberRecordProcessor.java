@@ -1,15 +1,14 @@
-package contacts.processors.impl;
+package contacts.processors.impl.edit;
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Record;
-import contacts.processors.IEditRecordActionProcessor;
+import contacts.processors.IEditRecordProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class EditPhoneNumberRecordProcessor implements IEditRecordActionProcessor {
+public class EditPhoneNumberRecordProcessor implements IEditRecordProcessor {
 
     private final IRecordService recordService;
 
@@ -18,7 +17,7 @@ public class EditPhoneNumberRecordProcessor implements IEditRecordActionProcesso
     }
 
     @Override
-    public void doAction(Record record) throws IOException {
+    public void editRecord(Record record) {
         String phoneNumber = ConsoleReader.getStringFromConsole("Enter the new phone number: ",
                 Constants.PHONE_NUMBER_CHECK_PATTERN, Constants.WRONG_NUMBER_FORMAT_ERROR);
         record.setPhoneNumber(phoneNumber);
@@ -29,7 +28,7 @@ public class EditPhoneNumberRecordProcessor implements IEditRecordActionProcesso
     }
 
     @Override
-    public String getSupportedActionTitle() {
+    public String getSupportedFieldEditionName() {
         return "number";
     }
 }

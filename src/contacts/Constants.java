@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 public class Constants {
+
     public static final Pattern PHONE_NUMBER_CHECK_PATTERN =
             Pattern.compile("^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$");
     public static final Pattern BIRTH_DATE_CHECK_PATTERN =
@@ -28,4 +29,5 @@ public class Constants {
     public static final String DOT_SEPARATOR = ". ";
     public static final String FILE_NAME = "database.txt";
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
+    public static final String READ_FROM_CONSOLE_ERROR_MESSAGE = "Sorry, something went wrong while reading from the console ... ";
 }

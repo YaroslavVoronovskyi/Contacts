@@ -2,14 +2,19 @@ package contacts.dao;
 
 import contacts.model.Record;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface IRecordDao {
-    List<Record> getAll() throws IOException;
-    void save(Record record) throws IOException;
-    void update(Record record) throws IOException;
+
+    List<Record> getAll();
+
+    void save(Record record);
+
+    void update(Record record);
+
     void delete(Record record);
-    int getRecordsCount() throws IOException;
+
+    int getRecordsCount();
+
     List<Record> getRecordsByQuery(String query);
 }

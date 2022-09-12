@@ -1,16 +1,15 @@
-package contacts.processors.impl;
+package contacts.processors.impl.add;
 
 
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Organization;
-import contacts.processors.IRecordActionProcessor;
+import contacts.processors.IAddRecordProcessor;
 import contacts.service.IRecordService;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class AddNewOrganizationProcessor implements IRecordActionProcessor {
+public class AddNewOrganizationProcessor implements IAddRecordProcessor {
 
     private final IRecordService recordService;
 
@@ -19,7 +18,7 @@ public class AddNewOrganizationProcessor implements IRecordActionProcessor {
     }
 
     @Override
-    public void doAction() throws IOException {
+    public void addNewRecord() {
         String name = ConsoleReader.getStringFromConsole("Enter the name of the organization: ",
                 Constants.NAME_CHECK_PATTERN, Constants.WRONG_NAME_FORMAT_ERROR);
         String address = ConsoleReader.getStringFromConsole("Enter the address: ",
@@ -36,7 +35,7 @@ public class AddNewOrganizationProcessor implements IRecordActionProcessor {
     }
 
     @Override
-    public String getSupportedActionTitle() {
+    public String getSupportedRecordType() {
         return "organization";
     }
 }
