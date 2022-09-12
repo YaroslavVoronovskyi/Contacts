@@ -1,6 +1,7 @@
 package contacts.processors.impl;
 
 import contacts.ConsoleReader;
+import contacts.Constants;
 import contacts.model.Person;
 import contacts.model.Record;
 import contacts.processors.IEditRecordActionProcessor;
@@ -20,7 +21,8 @@ public class EditSurnamePersonProcessor implements IEditRecordActionProcessor {
     @Override
     public void doAction(Record record) throws IOException {
         Person person = (Person) record;
-        String surname = ConsoleReader.getStringFromConsole("Enter the surname");
+        String surname = ConsoleReader.getStringFromConsole("Enter the surname of the person:",
+                Constants.SURNAME_CHECK_PATTERN, Constants.WRONG_SURNAME_FORMAT_ERROR);
         person.setSurname(surname);
         person.setLastEditDate(LocalDateTime.now());
         recordService.update(person);

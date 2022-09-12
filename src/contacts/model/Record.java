@@ -7,7 +7,6 @@ import java.util.UUID;
 public abstract class Record implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     protected String id;
     protected String name;
     protected String phoneNumber;

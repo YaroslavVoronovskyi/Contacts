@@ -3,7 +3,6 @@ package contacts.dao.impl;
 import contacts.Constants;
 import contacts.dao.IRecordDao;
 import contacts.model.Record;
-import contacts.util.SerializationUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,49 +12,32 @@ import java.util.List;
 public class FileRecordDao implements IRecordDao {
     List<Record> phoneBook = new LinkedList<>();
 
-    @Override
-    public Record getByIndex(int index) {
-        return null;
+    public FileRecordDao() {
+        initPhoneBook();
     }
 
     @Override
     public List<Record> getAll() {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(Constants.FILE_NAME);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            while (true) {
-                try {
-                    Record record = (Record) objectInputStream.readObject();
-                    phoneBook.removeIf(r -> r.getId().equals(record.getId()));
-                    phoneBook.add(record);
-                } catch (IOException exception) {
-                    break;
-                }
-            }
-            objectInputStream.close();
-        } catch (ClassNotFoundException | IOException exception) {
-            exception.printStackTrace();
-        }
         return phoneBook;
     }
 
     @Override
     public void save(Record record) {
         phoneBook.add(record);
-        SerializationUtil.serializeObject(phoneBook);
+        writeObjectsToFile(phoneBook);
     }
 
     @Override
     public void update(Record record) throws IOException {
         removeByCondition(record);
         phoneBook.add(record);
-        SerializationUtil.serializeObject(phoneBook);
+        writeObjectsToFile(phoneBook);
     }
 
     @Override
     public void delete(Record record) {
         removeByCondition(record);
-        SerializationUtil.serializeObject(phoneBook);
+        writeObjectsToFile(phoneBook);
     }
 
     @Override
@@ -74,7 +56,38 @@ public class FileRecordDao implements IRecordDao {
         return resultsList;
     }
 
+    private void initPhoneBook() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(Constants.FILE_NAME);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            while (true) {
+                try {
+                    Record record = (Record) objectInputStream.readObject();
+                    phoneBook.add(record);
+                } catch (IOException exception) {
+                    break;
+                }
+            }
+            objectInputStream.close();
+        } catch (ClassNotFoundException | IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     private void removeByCondition(Record record) {
         phoneBook.removeIf(r -> r.getId().equals(record.getId()));
+    }
+
+    private void writeObjectsToFile(List<Record> phoneBook) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(Constants.FILE_NAME);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            for (Record currentRecord : phoneBook) {
+                objectOutputStream.writeObject(currentRecord);
+            }
+            objectOutputStream.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }

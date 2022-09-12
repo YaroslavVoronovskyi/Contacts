@@ -10,12 +10,6 @@ import java.util.regex.Pattern;
 public class ConsoleReader {
     private static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-    public static String getStringFromConsole() throws IOException {
-        String value = bufferedReader.readLine();
-        checkExpressionByNull(value);
-        return value;
-    }
-
     public static String getStringFromConsole(String message) throws IOException {
         System.out.println(message);
         String value = bufferedReader.readLine();
@@ -53,12 +47,11 @@ public class ConsoleReader {
                 resultNotValid = true;
             }
         } while (resultNotValid);
-        System.out.println(message);
         return recordNumber;
     }
 
     private static void checkExpressionByNull(String value) throws IOException {
-        while (value == null || value.trim().isEmpty()) {
+        while (value == null) {
             System.out.println("expression can not be null or empty");
             value = bufferedReader.readLine();
         }

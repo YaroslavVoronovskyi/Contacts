@@ -28,7 +28,7 @@ public class RemoveRecordProcessor implements IActionProcessor {
         int index = 0;
         for (Record record : recordsList) {
             index++;
-            System.out.println(index + Constants.DELIMETER + record);
+            System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
         }
 
         int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);

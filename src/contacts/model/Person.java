@@ -11,11 +11,9 @@ public class Person extends Record implements Serializable {
     private String birthDate;
     private String gender;
 
-    public Person(String name, String surname, String birthDate, String gender) {
+    public Person(String name, String surname) {
         super(name);
         this.surname = surname;
-        this.birthDate = birthDate;
-        this.gender = gender;
     }
 
     public String getBirthDate() {

@@ -1,9 +1,9 @@
 package contacts.processors.impl;
 
 import contacts.ConsoleReader;
+import contacts.Constants;
 import contacts.model.Record;
 import contacts.processors.IActionProcessor;
-import contacts.processors.IProcessorFactory;
 import contacts.service.IRecordService;
 
 import java.io.IOException;
@@ -12,16 +12,15 @@ import java.util.List;
 public class SearchRecordProcessor implements IActionProcessor {
 
     private final IRecordService recordService;
-    private final IProcessorFactory processorFactory;
 
-    public SearchRecordProcessor(IRecordService recordService, IProcessorFactory processorFactory) {
+    public SearchRecordProcessor(IRecordService recordService) {
         this.recordService = recordService;
-        this.processorFactory = processorFactory;
     }
 
     @Override
     public boolean doAction() throws IOException {
-        String query = ConsoleReader.getStringFromConsole("Enter search query: ");
+        String query = ConsoleReader.getStringFromConsole("Enter search query: ",
+                Constants.SEARCH_QUERY_CHECK_PATTERN, Constants.WRONG_SEARCH_QUERY_FORMAT_ERROR);
         List<Record> resultList = recordService.getRecordsByQuery(query);
         System.out.println("Found " + resultList.size() + " results:");
         if (resultList.size() == 0) {
@@ -31,17 +30,15 @@ public class SearchRecordProcessor implements IActionProcessor {
         int index = 0;
         for (Record record : resultList) {
             index++;
-            record.printRecord(index);
+            System.out.println(index + Constants.DOT_SEPARATOR + Constants.DELIMETER + record.getName());
         }
 
         int recordNumber = ConsoleReader.getIntFromConsole("Select a record: ", index);
         Record record = resultList.get(recordNumber - 1);
         System.out.println(record);
 
-        String actionTitle = ConsoleReader.getStringFromConsole();
-        IActionProcessor processor = processorFactory.getProcessorByTitle(actionTitle);
-        processor.doAction();
-        return false;
+        System.out.println();
+        return true;
     }
 
     @Override

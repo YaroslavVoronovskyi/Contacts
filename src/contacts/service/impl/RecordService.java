@@ -16,11 +16,6 @@ public class RecordService implements IRecordService {
     }
 
     @Override
-    public Record getByIndex(int index) {
-        return recordDao.getByIndex(index);
-    }
-
-    @Override
     public List<Record> getAll() throws IOException {
         return recordDao.getAll();
     }

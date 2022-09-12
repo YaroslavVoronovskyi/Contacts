@@ -9,11 +9,11 @@ import contacts.service.IRecordService;
 import java.io.IOException;
 import java.util.List;
 
-public class ShowRecordProcessor implements IActionProcessor {
+public class ShowRecordsListProcessor implements IActionProcessor {
 
     private final IRecordService recordService;
 
-    public ShowRecordProcessor(IRecordService recordService) {
+    public ShowRecordsListProcessor(IRecordService recordService) {
         this.recordService = recordService;
     }
 
@@ -34,8 +34,7 @@ public class ShowRecordProcessor implements IActionProcessor {
         System.out.println();
 
         int recordNumber = ConsoleReader.getIntFromConsole("Select a record number: ", index);
-        Record record;
-        record = recordsList.get(recordNumber - 1);
+        Record record = recordsList.get(recordNumber - 1);
         System.out.println(record);
 
         System.out.println();

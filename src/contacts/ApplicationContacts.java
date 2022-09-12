@@ -38,26 +38,18 @@ public class ApplicationContacts {
             IActionProcessor countRecordProcessor = new CountRecordProcessor(recordService);
             IActionProcessor removeRecordProcessor = new RemoveRecordProcessor(recordService);
             IActionProcessor exitApplicationProcessor = new ExitAppActionProcessor();
-            IActionProcessor menuApplicationProcessor = new MenuApplicationProcessor();
-
-            IProcessorFactory processorFactory = new ProcessorFactory(List.of(countRecordProcessor,
-                    removeRecordProcessor, exitApplicationProcessor, chooseTypeRecordProcessor, menuApplicationProcessor));
-
-            IActionProcessor searchPhoneNumberRecordProcessor = new SearchPhoneNumberRecordProcessor(recordService);
-            IActionProcessor searchRecordProcessor = new SearchRecordProcessor(recordService, processorFactory);
-
-            IActionProcessor showRecordProcessor = new ShowRecordProcessor(recordService);
+            IActionProcessor searchRecordProcessor = new SearchRecordProcessor(recordService);
+            IActionProcessor showRecordsListProcessor = new ShowRecordsListProcessor(recordService);
             IActionProcessor editRecordProcessor = new EditRecordProcessor(recordService, editPersonProcessorFactory);
+
             IProcessorFactory phoneBookProcessorFactory = new ProcessorFactory(List.of(countRecordProcessor, editRecordProcessor,
-                    removeRecordProcessor, exitApplicationProcessor, chooseTypeRecordProcessor, showRecordProcessor,
-                    menuApplicationProcessor, searchRecordProcessor, searchPhoneNumberRecordProcessor));
+                    removeRecordProcessor, exitApplicationProcessor, chooseTypeRecordProcessor, showRecordsListProcessor,
+                    searchRecordProcessor));
 
             PhoneBook phoneBook = new PhoneBook(phoneBookProcessorFactory);
             phoneBook.runPhoneBook();
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException | IOException | ClassNotFoundException exception) {
             System.out.println(exception.getMessage());
-        } catch (IOException | ClassNotFoundException exception) {
-            throw new RuntimeException(exception);
         }
     }
 }

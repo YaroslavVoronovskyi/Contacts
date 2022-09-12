@@ -1,6 +1,7 @@
 package contacts.processors.impl;
 
 import contacts.ConsoleReader;
+import contacts.Constants;
 import contacts.model.Organization;
 import contacts.model.Record;
 import contacts.processors.IEditRecordActionProcessor;
@@ -20,7 +21,8 @@ public class EditAddressOrganizationProcessor implements IEditRecordActionProces
     @Override
     public void doAction(Record record) throws IOException {
         Organization organization = (Organization) record;
-        String address = ConsoleReader.getStringFromConsole("Enter address:");
+        String address = ConsoleReader.getStringFromConsole("Enter the address:",
+                Constants.ADDRESS_CHECK_PATTERN, Constants.WRONG_ADDRESS_FORMAT_ERROR);
         organization.setAddress(address);
         organization.setLastEditDate(LocalDateTime.now());
         recordService.update(organization);

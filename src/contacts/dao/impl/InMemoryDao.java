@@ -11,11 +11,6 @@ public class InMemoryDao implements IRecordDao {
     List<Record> phoneBook = new ArrayList<>();
 
     @Override
-    public Record getByIndex(int index) {
-        return phoneBook.get(index);
-    }
-
-    @Override
     public List<Record> getAll() {
         return phoneBook;
     }

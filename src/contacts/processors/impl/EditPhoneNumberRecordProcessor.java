@@ -5,7 +5,6 @@ import contacts.Constants;
 import contacts.model.Record;
 import contacts.processors.IEditRecordActionProcessor;
 import contacts.service.IRecordService;
-import contacts.service.Validator;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

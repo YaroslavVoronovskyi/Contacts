@@ -30,7 +30,6 @@ public class EditPersonProcessorFactory implements IEditRecordProcessorFactory {
             if (!isTitleExist) {
                 System.out.println(Constants.WRONG_TITLE_ERROR);
                 title = ConsoleReader.getStringFromConsole("Enter the correct title");
-                continue;
             }
         }
         return processor;
