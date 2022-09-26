@@ -1,6 +1,5 @@
 package contacts.processors.impl.add;
 
-
 import contacts.ConsoleReader;
 import contacts.Constants;
 import contacts.model.Organization;
